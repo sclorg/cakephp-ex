@@ -21,12 +21,12 @@
  */
 
 // This is where we define the OpenShift specific secure variable functions
-include(dirname(dirname(dirname(dirname(__FILE__)))) . DS . 'libs' . DS . 'openshift.inc');
+include(dirname(dirname(dirname(__FILE__))) . DS . 'lib' . DS . 'openshift.php');
 
 // Set the default keys to use
 $_default_keys = array(
-    'Security.salt'       => 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi',
-    'Security.cipherSeed' => '76859309657453542496749683645'
+    'Security.salt'       => 'Er2G93bfqyffIxf3r2TVoUuREwv4iR2GweWg349m1',
+    'Security.cipherSeed' => '244654350562786442415254364540'
 );
 
 // This function gets called by openshift_secure and passes an array
@@ -256,7 +256,7 @@ $key_list = openshift_secure($_default_keys,'make_secure_key');
  *
  */
 	Configure::write('Session', array(
-		'defaults' => 'php'
+		'defaults' => 'cake'
 	));
 
 /**
