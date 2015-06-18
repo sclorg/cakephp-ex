@@ -264,7 +264,7 @@ osc env dc/frontend MYSQL_PASSWORD=&lt;your database user's password&gt;
                   </p>
                   <p>
                   Note: If the database service is created in the same project as the frontend pod,
-                  the *_SERVICE_HOST and *SERVICE_PORT environment variables will be automatically
+                  the *_SERVICE_HOST and *_SERVICE_PORT environment variables will be automatically
                   created.
                   </p>
 
