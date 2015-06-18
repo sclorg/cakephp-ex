@@ -261,12 +261,12 @@ $ git push</pre>
                   Note: the cakephp-mysql.json template creates the DB service and environment variables for you.
 
 <pre>
-osc env dc/frontend DATABASE_SERVICE_NAME=&lt;database service name&gt;
-osc env dc/frontend &lt;DATABASE_SERVICE_NAME&gt;_SERVICE_HOST=&lt;database service ip&gt;
-osc env dc/frontend &lt;DATABASE_SERVICE_NAME&gt;_SERVICE_PORT=&lt;database service port&gt;
-osc env dc/frontend MYSQL_DATABASE=&lt;your created database&gt;
-osc env dc/frontend MYSQL_USER=&lt;your database user&gt;
-osc env dc/frontend MYSQL_PASSWORD=&lt;your database user's password&gt;
+oc env dc/cakephp-frontend DATABASE_SERVICE_NAME=&lt;database service name&gt;
+oc env dc/cakephp-frontend &lt;DATABASE_SERVICE_NAME&gt;_SERVICE_HOST=&lt;database service ip&gt;
+oc env dc/cakephp-frontend &lt;DATABASE_SERVICE_NAME&gt;_SERVICE_PORT=&lt;database service port&gt;
+oc env dc/cakephp-frontend MYSQL_DATABASE=&lt;your created database&gt;
+oc env dc/cakephp-frontend MYSQL_USER=&lt;your database user&gt;
+oc env dc/cakephp-frontend MYSQL_PASSWORD=&lt;your database user's password&gt;
 </pre>
                   </p>
                   <p>
