@@ -172,6 +172,7 @@ h3 {
 }
 p {
   margin: 0 0 2em;
+  text-align: justify;
 }
 p + h2 {
   margin-top: 2em;
@@ -216,17 +217,24 @@ pre {
         <div class="row">
           <section class='col-xs-12 col-sm-6 col-md-6'>
             <section>
+              <h2>How to use this example application</h2>
+                <p>For instrutions on how to use this application with OpenShift, start with reading the <a href="http://docs.openshift.org/latest/dev_guide/templates.html#using-the-quickstart-templates">Developer Guide</a>.</p>
+
               <h2>Deploying code changes</h2>
-                <p>The source code for this application is available to be forked from the <a href="https://www.github.com/openshift/cakephp-ex">OpenShift GitHub repository</a>.  Since OpenShift V3 does not provide a Git repository out of the box, you can configure your forked repository to make a webhook call to OpenShift and automatically start a build whenever you push your code. </p>
+                <p>
+                  The source code for this application is available to be forked from the <a href="https://www.github.com/openshift/cakephp-ex">OpenShift GitHub repository</a>.
+                  You can configure a webhook in your repository to make OpenShift automatically start a build whenever you push your code:
+                </p>
 
-<pre># From the console navigate to your project
-
-# Click on Browse > Builds
-# From the view for your Build click on the link to display your GitHub webhook and copy the url.
-# Navigate to your repository on GitHub and click on repository settings > webhooks
-# Paste your copied webhook url provided by OpenShift - Thats it!
-
-# After you save your webhook, if you refresh your settings page you can see the status of the ping that Github sent to OpenShift to verify it can reach the server.</pre>
+<ol>
+  <li>From the Web Console homepage, navigate to your project</li>
+  <li>Click on Browse &gt; Builds</li>
+  <li>From the view for your Build click on the button to copy your GitHub webhook</li>
+  <li>Navigate to your repository on GitHub and click on repository settings &gt; webhooks</li>
+  <li>Paste your webhook URL provided by OpenShift &mdash; that's it!</li>
+</ol>
+<p>After you save your webhook, if you refresh your settings page you can see the status of the ping that Github sent to OpenShift to verify it can reach the server.</p>
+<p>Note: adding a webhook requires your OpenShift server to be reachable from GitHub.</p>
 
                 <h3>Working in your local Git repository</h3>
                 <p>If you forked the application from the OpenShift GitHub example, you'll need to manually clone the repository to your local system. Copy the application's source code Git URL and then run:</p>
@@ -238,10 +246,8 @@ pre {
 
 $ git commit -a -m 'Some commit message'
 $ git push</pre>
-                  <ul>
-                    <li><a href="https://developers.openshift.com/en/managing-modifying-applications.html">Learn more about deploying and building your application</a></li>
-                    <li>See the README file in your local application Git repository for more information on the options for deploying applications.</li>
-                  </ul>
+
+<p>After pushing changes, you'll need to manually trigger a build if you did not setup a webhook as described above.</p>
 
                   <h3>Expanding on sample app</h3>
                   <p>
@@ -252,7 +258,7 @@ $ git push</pre>
                   <p>
                   It will also be necessary to update your application to talk to your database back-end.  The <code>config/database.yml</code> file used by rails was set up in such a way that it will accept environment variables for your connection information that you pass to it.
                   Once an administrator has created a MySQL database service for you to connect with you can add the following environment variables to your deploymentConfig to ensure all your frontend pods have access to these environment variables.
-                  
+
 <pre>
 osc env dc/frontend DATABASE_SERVICE_NAME=&lt;database service name&gt;
 osc env dc/frontend &lt;DATABASE_SERVICE_NAME&gt;_SERVICE_HOST=&lt;database service ip&gt;
@@ -275,18 +281,20 @@ osc env dc/frontend MYSQL_PASSWORD=&lt;your database user's password&gt;
 
                 <h2>Managing your application</h2>
 
-                <h3>Web Console</h3>
-                <p>You can use the OpenShift web console to enable additional services via containers and images, add collaborator access authorizations, designate custom domain aliases, and manage domain memberships.</p>
+                <p>Documentation on how to manage your application from the Web Console or Command Line is available at the <a href="http://docs.openshift.org/latest/dev_guide/overview.html">Developer Guide</a>.</p>
 
-                <h3>Command Line Tools</h3>
-                <p>Installing the <a href="http://docs.openshift.org/latest/cli_reference/overview.html">OpenShift OC client tools</a> allows you complete control of your cloud environment. Read more on how to manage your application from the command line in our <a href="http://docs.openshift.org/latest/dev_guide/overview.html">Developer Guide</a>.
-                </p>
+                <h3>Web Console</h3>
+                <p>You can use the Web Console to view the state of your application components and launch new builds.</p>
+
+                <h3>Command Line</h3>
+                <p>With the <a href="http://docs.openshift.org/latest/cli_reference/overview.html">OpenShift command line interface</a> (CLI), you can create applications and manage projects from a terminal.</p>
 
                 <h2>Development Resources</h2>
                   <ul>
                     <li><a href="http://docs.openshift.org/latest/welcome/index.html">OpenShift Documentation</a></li>
                     <li><a href="https://github.com/openshift/origin">Openshift Origin GitHub</a></li>
                     <li><a href="https://github.com/openshift/source-to-image">Source To Image GitHub</a></li>
+                    <li><a href="http://docs.openshift.org/latest/using_images/sti_images/php.html">Getting Started with PHP on OpenShift</a></li>
                     <li><a href="http://stackoverflow.com/questions/tagged/openshift">Stack Overflow questions for OpenShift</a></li>
                     <li><a href="http://git-scm.com/documentation">Git documentation</a></li>
                   </ul>
