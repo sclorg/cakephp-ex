@@ -258,6 +258,7 @@ $ git push</pre>
                   <p>
                   It will also be necessary to update your application to talk to your database back-end.  The <code>config/database.yml</code> file used by rails was set up in such a way that it will accept environment variables for your connection information that you pass to it.
                   Once an administrator has created a MySQL database service for you to connect with you can add the following environment variables to your deploymentConfig to ensure all your frontend pods have access to these environment variables.
+                  Note: the cakephp-mysql.json template creates the DB service and environment variables for you.
 
 <pre>
 osc env dc/frontend DATABASE_SERVICE_NAME=&lt;database service name&gt;
