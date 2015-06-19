@@ -218,7 +218,7 @@ pre {
           <section class='col-xs-12 col-sm-6 col-md-6'>
             <section>
               <h2>How to use this example application</h2>
-                <p>For instrutions on how to use this application with OpenShift, start with reading the <a href="http://docs.openshift.org/latest/dev_guide/templates.html#using-the-quickstart-templates">Developer Guide</a>.</p>
+                <p>For instructions on how to use this application with OpenShift, start by reading the <a href="http://docs.openshift.org/latest/dev_guide/templates.html#using-the-quickstart-templates">Developer Guide</a>.</p>
 
               <h2>Deploying code changes</h2>
                 <p>
@@ -256,7 +256,7 @@ $ git push</pre>
                   the default.ctp.default to default.ctp.
                   </p>
                   <p>
-                  It will also be necessary to update your application to talk to your database back-end.  The <code>config/database.yml</code> file used by rails was set up in such a way that it will accept environment variables for your connection information that you pass to it.
+                  It will also be necessary to update your application to talk to your database back-end.  The <code>app/Config/database.php</code> file used by CakePHP was set up in such a way that it will accept environment variables for your connection information that you pass to it.
                   Once an administrator has created a MySQL database service for you to connect with you can add the following environment variables to your deploymentConfig to ensure all your frontend pods have access to these environment variables.
                   Note: the cakephp-mysql.json template creates the DB service and environment variables for you.
 
@@ -273,6 +273,13 @@ oc env dc/cakephp-frontend MYSQL_PASSWORD=&lt;your database user's password&gt;
                   Note: If the database service is created in the same project as the frontend pod,
                   the *_SERVICE_HOST and *_SERVICE_PORT environment variables will be automatically
                   created.
+                  </p>
+                  <p>
+                  You will need to redeploy your application in order to pick up the new environment variables.  You can force a deployment
+                  by running:
+<pre>
+oc deploy cakephp-frontend --latest
+</pre>
                   </p>
 
             </section>
@@ -299,7 +306,6 @@ oc env dc/cakephp-frontend MYSQL_PASSWORD=&lt;your database user's password&gt;
                     <li><a href="http://stackoverflow.com/questions/tagged/openshift">Stack Overflow questions for OpenShift</a></li>
                     <li><a href="http://git-scm.com/documentation">Git documentation</a></li>
                   </ul>
-
 
           </section>
         </div>
