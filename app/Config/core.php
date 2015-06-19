@@ -25,8 +25,8 @@ include(dirname(dirname(dirname(__FILE__))) . DS . 'lib' . DS . 'openshift.php')
 
 // Set the default keys to use
 $_default_keys = array(
-    'Security.salt'       => 'Er2G93bfqyffIxf3r2TVoUuREwv4iR2GweWg349m1',
-    'Security.cipherSeed' => '244654350562786442415254364540'
+    'Security.salt'       => getenv("CAKEPHP_SECURITY_SALT"),
+    'Security.cipherSeed' => getenv("CAKEPHP_SECURITY_CIPHER_SEED")
 );
 
 // This function gets called by openshift_secure and passes an array
