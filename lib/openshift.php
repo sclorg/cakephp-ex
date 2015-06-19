@@ -9,11 +9,11 @@
 //    'original' => original value
 //  }
 function openshift_secure($default_keys,$secure_function = null) {
-  // Attempts to get secret token from CAKEPHP_SECRET_KEY,
+  // Attempts to get secret token from CAKEPHP_SECRET_TOKEN,
   // generated in openshift template in openshift/templates.
   // For development purposes a default secret token is used.
-  if ( getenv('CAKEPHP_SECRET_KEY') != '' ) {
-    $my_token = getenv('CAKEPHP_SECRET_KEY');
+  if ( getenv('CAKEPHP_SECRET_TOKEN') != '' ) {
+    $my_token = getenv('CAKEPHP_SECRET_TOKEN');
   } else {
     $my_token = 'te5t5tr1ng4l0c4ld3v3l0pm3nt';
   }

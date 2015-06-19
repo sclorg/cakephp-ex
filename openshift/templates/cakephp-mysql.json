@@ -191,8 +191,16 @@
                     "value": "${DATABASE_PASSWORD}"
                   },
                   {
-                    "name": "CAKEPHP_SECRET_KEY",
-                    "value": "${CAKEPHP_SECRET_KEY}"
+                    "name": "CAKEPHP_SECRET_TOKEN",
+                    "value": "${CAKEPHP_SECRET_TOKEN}"
+                  },
+                  {
+                    "name": "CAKEPHP_SECURITY_SALT",
+                    "value": "${CAKEPHP_SECURITY_SALT}"
+                  },
+                  {
+                    "name": "CAKEPHP_SECURITY_CIPHER_SEED",
+                    "value": "${CAKEPHP_SECURITY_CIPHER_SEED}"
                   }
                 ]
               }
@@ -335,10 +343,22 @@
       "from": "[a-zA-Z0-9]{16}"
     },
     {
-      "name": "CAKEPHP_SECRET_KEY",
+      "name": "CAKEPHP_SECRET_TOKEN",
       "description": "Set this to a long random string",
       "generate": "expression",
       "from": "[\\w]{50}"
+    },
+    {
+      "name": "CAKEPHP_SECURITY_SALT",
+      "description": "Security salt for session hash",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
+    },
+    {
+      "name": "CAKEPHP_SECURITY_CIPHER_SEED",
+      "description": "Security cipher seed for session hash",
+      "generate": "expression",
+      "from": "[0-9]{30}"
     }
   ]
 }
