@@ -21,11 +21,11 @@ These steps assume your OpenShift deployment has the default set of ImageStreams
 2. Clone your repository to your development machine and cd to the repository directory
 3. Add a PHP application from the provided template and specify the source url to be your forked repo  
 
-		$ oc process -f openshift/templates/cakephp.json -v SOURCE_REPOSITORY_URL=<your repository location> | oc create -f - 
+		$ oc new-app openshift/templates/cakephp.json -p SOURCE_REPOSITORY_URL=<your repository location>
 
 4. Watch your build progress  
 
-		$ oc build-logs cakephp-app-1
+		$ oc build-logs cakephp-example-1
 
 5. Wait for frontend pods to start up (this can take a few minutes):  
 
@@ -62,7 +62,7 @@ In this case, the IP for frontend is 172.30.174.142 and it is on port 8080.
   - Note: The output in steps 5-6 may also display information about your database.
 2. Add a PHP application from the cakephp-mysql template and specify the source url to be your forked repo  
 
-		$ oc process -f openshift/templates/cakephp-mysql.json -v SOURCE_REPOSITORY_URL=<your repository location> | oc create -f - 
+		$ oc new-app openshift/templates/cakephp-mysql.json -p SOURCE_REPOSITORY_URL=<your repository location>
 
 
 ###Adding Webhooks and Making Code Changes
