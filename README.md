@@ -15,7 +15,7 @@ These are some special considerations you may need to keep in mind when running 
 Since the quickstarts are shared code, we had to take special consideration to ensure that security related configuration variable values are unique across applications. To accomplish this, we modified some of the configuration files. Namely we changed Security.salt and Security.cipherSeed values in the app/Config/core.php config file. Those values are now generated from the application template as CAKEPHP_SECURITY_SALT and CAKEPHP_SECURITY_CIPHER_SEED. Also the secret token is generated in the template as CAKEPHP_SECRET_TOKEN. From these values the session hashes are generated. Now instead of using the same default values, OpenShift can generate these values using the generate from logic defined within the instant application's template.
 
 ###Installation: 
-These steps assume your OpenShift deployment has the default set of ImageStreams defined.  Instructions for installing the default ImageStreams are available [here](http://docs.openshift.org/latest/admin_guide/install/first_steps.html)
+These steps assume your OpenShift deployment has the default set of ImageStreams defined.  Instructions for installing the default ImageStreams are available [here](http://docs.openshift.org/latest/admin_guide/install/first_steps.html).  If you are defining the set of ImageStreams now, remember to pass in the proper cluster-admin credentials and to create the ImageStreams in the 'openshift' namespace.
 
 1. Fork a copy of [cakephp-ex](https://github.com/openshift/cakephp-ex)
 2. Clone your repository to your development machine and cd to the repository directory
@@ -23,39 +23,41 @@ These steps assume your OpenShift deployment has the default set of ImageStreams
 
 		$ oc new-app openshift/templates/cakephp.json -p SOURCE_REPOSITORY_URL=<your repository location>
 
-4. Watch your build progress  
+4. Depending on the state of your system, and whether additional items need to be downloaded, it may take around a minute for your build to be started automatically.  If you do not want to wait, run
+
+		$ oc start-build cakephp-example
+
+5. Once the build is running, watch your build progress  
 
 		$ oc build-logs cakephp-example-1
 
-5. Wait for frontend pods to start up (this can take a few minutes):  
+6. Wait for cakephp-example pods to start up (this can take a few minutes):  
 
 		$ oc get pods -w
 
 
 	Sample output:  
 
-		NAME                       READY     REASON    RESTARTS   AGE
-		cakephp-example-1-build     1/1       Running   0          4m
-		cakephp-frontend-1-deploy   1/1       Running   0          4s
-		cakephp-frontend-1-votfl    0/1       Pending   0          1s
-		NAME                     READY     REASON       RESTARTS   AGE
-		cakephp-example-1-build   0/1       ExitCode:0   0          4m
-		cakephp-frontend-1-votfl   0/1       Running   0         6s
-		cakephp-frontend-1-deploy   0/1       ExitCode:0   0         14s
-		cakephp-frontend-1-votfl   1/1       Running   0         12s    
+	       NAME                      READY     REASON         RESTARTS   AGE
+	       cakephp-example-1-build   0/1       ExitCode:0     0          8m
+	       cakephp-example-1-pytud   1/1       Running        0          2m
 
 
-6. Check the IP and port the frontend service is running on:  
+7. Check the IP and port the cakephp-example service is running on:  
 
 		$ oc get svc
 
 	Sample output:  
 
-		NAME              LABELS                          SELECTOR               IP(S)            PORT(S)
-		cakephp-frontend   template=cakephp-mysql-example   name=cakephp-frontend   172.30.174.142   8080/TCP
+	       NAME              LABELS                     SELECTOR               IP(S)           PORT(S)
+	       cakephp-example   template=cakephp-example   name=cakephp-example   172.30.97.123   8080/TCP
 
-In this case, the IP for frontend is 172.30.174.142 and it is on port 8080.  
+In this case, the IP for cakephp-example is 172.30.97.123 and it is on port 8080.  
 *Note*: you can also get this information from the web console.
+
+###Debugging Unexpected Failures
+
+Review some of the common tips and suggestions [here](https://github.com/openshift/origin/blob/master/docs/debugging-openshift.md).
 
 ###Installation: With MySQL
 1. Follow the steps for the Manual Installation above for all but step 3, instead use step 2 below.  
@@ -78,7 +80,9 @@ Since OpenShift V3 does not provide a git repository out of the box, you can con
 ###Enabling the Database example
 In order to access the example CakePHP home page, which contains application stats including database connectivity, you have to go into the app/Views/Layouts/ directory, remove the default.ctp and after that rename default.ctp.default into default.ctp`.
 
-You will then need to rebuild the application.
+It will also be necessary to update your application to talk to your database back-end. The app/Config/database.php file used by CakePHP was set up in such a way that it will accept environment variables for your connection information that you pass to it. Once an administrator has created a MySQL database service for you to connect with you can add the following environment variables to your deploymentConfig to ensure all your cakephp-example pods have access to these environment variables. Note: the cakephp-mysql.json template creates the DB service and environment variables for you. 
+
+You will then need to rebuild the application.  This is done via either a `oc start-build` command, or through the web console, or a webhook trigger in github initiating a build after the code changes are pushed.
 
 ###License
 This code is dedicated to the public domain to the maximum extent permitted by applicable law, pursuant to [CC0](http://creativecommons.org/publicdomain/zero/1.0/).
