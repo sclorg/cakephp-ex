@@ -261,12 +261,12 @@ $ git push</pre>
                   Note: the cakephp-mysql.json template creates the DB service and environment variables for you.
 
 <pre>
-oc env dc/cakephp-frontend DATABASE_SERVICE_NAME=&lt;database service name&gt;
-oc env dc/cakephp-frontend &lt;DATABASE_SERVICE_NAME&gt;_SERVICE_HOST=&lt;database service ip&gt;
-oc env dc/cakephp-frontend &lt;DATABASE_SERVICE_NAME&gt;_SERVICE_PORT=&lt;database service port&gt;
-oc env dc/cakephp-frontend MYSQL_DATABASE=&lt;your created database&gt;
-oc env dc/cakephp-frontend MYSQL_USER=&lt;your database user&gt;
-oc env dc/cakephp-frontend MYSQL_PASSWORD=&lt;your database user's password&gt;
+oc env dc/cakephp-mysql-example DATABASE_SERVICE_NAME=&lt;database service name&gt;
+oc env dc/cakephp-mysql-example &lt;DATABASE_SERVICE_NAME&gt;_SERVICE_HOST=&lt;database service ip&gt;
+oc env dc/cakephp-mysql-example &lt;DATABASE_SERVICE_NAME&gt;_SERVICE_PORT=&lt;database service port&gt;
+oc env dc/cakephp-mysql-example MYSQL_DATABASE=&lt;your created database&gt;
+oc env dc/cakephp-mysql-example MYSQL_USER=&lt;your database user&gt;
+oc env dc/cakephp-mysql-example MYSQL_PASSWORD=&lt;your database user's password&gt;
 </pre>
                   </p>
                   <p>
@@ -278,7 +278,7 @@ oc env dc/cakephp-frontend MYSQL_PASSWORD=&lt;your database user's password&gt;
                   You will need to redeploy your application in order to pick up the new environment variables.  You can force a deployment
                   by running:
 <pre>
-oc deploy cakephp-frontend --latest
+oc deploy cakephp-mysql-example --latest
 </pre>
                   </p>
 
