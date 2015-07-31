@@ -264,7 +264,7 @@
             "containers": [
               {
                 "name": "mysql",
-                "image": "openshift/mysql-55-centos7",
+                "image": "${MYSQL_IMAGE}",
                 "ports": [
                   {
                     "containerPort": 3306
@@ -341,6 +341,11 @@
       "description": "Database user password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{16}"
+    },
+    {
+      "name": "MYSQL_IMAGE",
+      "description": "Image to use for mysql",
+      "value": "openshift/mysql-55-centos7"      
     },
     {
       "name": "CAKEPHP_SECRET_TOKEN",
