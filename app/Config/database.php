@@ -89,8 +89,8 @@ class DATABASE_CONFIG {
 
         $datasource = 'Database/'.ucfirst(getenv('DATABASE_ENGINE'));
 
-        $this->default['host']       = getenv(strtoupper(getenv("DATABASE_ENGINE"))."_SERVICE_HOST");
-        $this->default['port']       = getenv(strtoupper(getenv("DATABASE_ENGINE"))."_SERVICE_PORT");
+        $this->default['host']       = getenv(strtoupper(getenv("DATABASE_SERVICE_NAME"))."_SERVICE_HOST");
+        $this->default['port']       = getenv(strtoupper(getenv("DATABASE_SERVICE_NAME"))."_SERVICE_PORT");
         $this->default['login']      = getenv("DATABASE_USER");
         $this->default['password']   = getenv("DATABASE_PASSWORD");
         $this->default['database']   = getenv("DATABASE_NAME");
