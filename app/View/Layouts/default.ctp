@@ -307,6 +307,44 @@ oc deploy cakephp-mysql-example --latest
                     <li><a href="http://git-scm.com/documentation">Git documentation</a></li>
                   </ul>
 
+                <h2>Request information</h2>
+                <p>Page view count:
+               <?php
+                    App::uses('ConnectionManager', 'Model');
+
+                    $hasDB=1;
+                    $tableExisted=0;
+                    try {
+                      $connection = ConnectionManager::getDataSource('default');
+                    } catch(Exception $e) {
+                      $hasDB=0;
+                    }
+                    if ($hasDB) {
+                        try {
+                          $connection->execute('create table view_counter (c integer)');
+                        } catch (Exception $e) {
+                        	$tableExisted=1;
+                        }
+                        try {
+                            if ($tableExisted==0) {
+                            	$connection->execute('insert into view_counter values(1)');
+                            } else {
+                                $connection->execute('update view_counter set c=c+1');
+                            }
+                            $result=$connection->execute('select * from view_counter')->fetch(PDO::FETCH_ASSOC);
+                        } catch (Exception $e) {
+                            $hasDB=0;
+                        }
+                    }
+                ?>
+                <?php if ($hasDB==1) : ?>
+                   <span class="code" id="count-value"><?php print_r($result['c']); ?></span>
+                   </p>
+                <?php else : ?>
+                   <span class="code" id="count-value">No database configured</span>
+                   </p>
+                <?php endif; ?>
+
           </section>
         </div>
 
