@@ -1,6 +1,11 @@
 #!/bin/bash -e
 
-source ${STI_SCRIPTS_PATH}/assemble
+if [ -e /usr/local/sti/assemble ]; then
+  # old assemble location in previous php image versions
+  source /usr/local/sti/assemble
+else 
+  source ${STI_SCRIPTS_PATH}/assemble
+fi
 
 [[ -d ./app/tmp ]] && chmod -R go+rw ./app/tmp
 
