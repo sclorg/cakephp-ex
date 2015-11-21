@@ -261,6 +261,7 @@
               ],
               "from": {
                 "kind": "ImageStreamTag",
+                "name": "openshift",
                 "name": "mysql:5.6"
               }
             }
