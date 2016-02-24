@@ -5,7 +5,7 @@
     "name": "cakephp-mysql-example",
     "annotations": {
       "description": "An example CakePHP application with a MySQL database",
-      "tags": "instant-app,php,cakephp,mysql",
+      "tags": "quickstart,php,cakephp,mysql",
       "iconClass": "icon-php"
     }
   },
