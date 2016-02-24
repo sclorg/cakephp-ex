@@ -5,7 +5,7 @@
     "name": "cakephp-example",
     "annotations": {
       "description": "An example CakePHP application with no database",
-      "tags": "instant-app,php,cakephp",
+      "tags": "quickstart,php,cakephp",
       "iconClass": "icon-php"
     }
   },
