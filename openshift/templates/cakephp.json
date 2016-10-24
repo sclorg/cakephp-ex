@@ -4,11 +4,13 @@
   "metadata": {
     "name": "cakephp-example",
     "annotations": {
-      "description": "An example CakePHP application with no database",
+      "openshift.io/display-name": "CakePHP",
+      "description": "An example CakePHP application with no database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/cake-ex/blob/master/README.md.",
       "tags": "quickstart,php,cakephp",
       "iconClass": "icon-php"
     }
   },
+  "message": "The following service(s) have been created in your project: ${NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshift/cake-ex/blob/master/README.md.",
   "labels": {
     "template": "cakephp-example"
   },
