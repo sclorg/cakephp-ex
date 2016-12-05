@@ -55,7 +55,7 @@
  *
  * settings =>
  * Array of key/value pairs, on connection it executes SET statements for each pair
- * For MySQL : http://dev.mysql.com/doc/refman/5.6/en/set-statement.html
+ * For MySQL : http://dev.mysql.com/doc/refman/5.7/en/set-statement.html
  * For Postgres : http://www.postgresql.org/docs/9.2/static/sql-set.html
  * For Sql Server : http://msdn.microsoft.com/en-us/library/ms190356.aspx
  */
