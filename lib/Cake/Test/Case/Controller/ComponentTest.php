@@ -2,8 +2,6 @@
 /**
  * ComponentTest file
  *
- * PHP 5
- *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -33,7 +31,10 @@ class ParamTestComponent extends Component {
  *
  * @var array
  */
-	public $components = array('Banana' => array('config' => 'value'));
+	public $components = array(
+		'Apple' => array('enabled' => true),
+		'Banana' => array('config' => 'value'),
+	);
 }
 
 /**
@@ -69,7 +70,7 @@ class AppleComponent extends Component {
 /**
  * testName property
  *
- * @var mixed null
+ * @var mixed
  */
 	public $testName = null;
 
@@ -286,6 +287,19 @@ class ComponentTest extends CakeTestCase {
 
 		$this->assertInstanceOf('SomethingWithEmailComponent', $Controller->SomethingWithEmail);
 		$this->assertInstanceOf('EmailComponent', $Controller->SomethingWithEmail->Email);
+	}
+
+/**
+ * Test lazy loading of components inside components and both explicit and
+ * implicit 'enabled' setting.
+ *
+ * @return void
+ */
+	public function testGet() {
+		$Collection = new ComponentCollection();
+		$ParamTest = $Collection->load('ParamTest');
+		$this->assertTrue($ParamTest->Apple->settings['enabled']);
+		$this->assertFalse($ParamTest->Banana->settings['enabled']);
 	}
 
 }

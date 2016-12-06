@@ -2,8 +2,6 @@
 /**
  * TaskCollectionTest file
  *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -20,6 +18,7 @@
 
 App::uses('TaskCollection', 'Console');
 App::uses('Shell', 'Console');
+
 /**
  * Extended Task
  */
@@ -27,7 +26,7 @@ class DbConfigAliasedTask extends Shell {
 }
 
 /**
- * Class TaskCollectionTest
+ * TaskCollectionTest
  *
  * @package       Cake.Test.Case.Console
  */

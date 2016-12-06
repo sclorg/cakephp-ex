@@ -4,8 +4,6 @@
  *
  * Use it to configure database for Sessions
  *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -20,23 +18,43 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-/*
- *
+/**
  * Using the Schema command line utility
  * cake schema run create Sessions
- *
  */
 class SessionsSchema extends CakeSchema {
 
+/**
+ * Name property
+ *
+ * @var string
+ */
 	public $name = 'Sessions';
 
+/**
+ * Before callback.
+ *
+ * @param array $event Schema object properties
+ * @return bool Should process continue
+ */
 	public function before($event = array()) {
 		return true;
 	}
 
+/**
+ * After callback.
+ *
+ * @param array $event Schema object properties
+ * @return void
+ */
 	public function after($event = array()) {
 	}
 
+/**
+ * The cake_sessions table definition
+ *
+ * @var array
+ */
 	public $cake_sessions = array(
 		'id' => array('type' => 'string', 'null' => false, 'key' => 'primary'),
 		'data' => array('type' => 'text', 'null' => true, 'default' => null),

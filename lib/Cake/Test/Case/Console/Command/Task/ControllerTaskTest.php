@@ -2,8 +2,6 @@
 /**
  * ControllerTask Test Case
  *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -41,7 +39,7 @@ if (!$imported) {
 	define('ARTICLE_MODEL_CREATED', true);
 
 /**
- * Class BakeArticle
+ * BakeArticle
  */
 	class BakeArticle extends Model {
 

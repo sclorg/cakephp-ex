@@ -2,8 +2,6 @@
 /**
  * SetTest file
  *
- * PHP 5
- *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -184,7 +182,7 @@ class SetTest extends CakeTestCase {
 		$expected = array('users' => array('lisa' => array('id' => 5, 'pw' => 'you-will-never-guess', 'age' => 25, 'pet' => 'dog')), 'cakephp', 'ice-cream', 'chocolate');
 		$this->assertEquals($expected, Set::merge($a, $b, $c));
 
-		$this->assertEquals(Set::merge($a, $b, array(), $c), $expected);
+		$this->assertEquals($expected, Set::merge($a, $b, array(), $c));
 
 		$r = Set::merge($a, $b, $c);
 		$this->assertEquals($expected, $r);
@@ -1354,6 +1352,8 @@ class SetTest extends CakeTestCase {
 
 /**
  * Test that extract() + matching can hit null things.
+ *
+ * @return void
  */
 	public function testExtractMatchesNull() {
 		$data = array(
@@ -1735,7 +1735,7 @@ class SetTest extends CakeTestCase {
 		$this->assertFalse(Set::check($set, 'Session Test'));
 
 		$expected = array('Session Test' => array('Test Case' => 'test'));
-		$this->assertEquals(Set::insert(array(), 'Session Test.Test Case', "test"), $expected);
+		$this->assertEquals($expected, Set::insert(array(), 'Session Test.Test Case', "test"));
 		$this->assertTrue(Set::check($expected, 'Session Test.Test Case'));
 	}
 
@@ -2763,7 +2763,6 @@ class SetTest extends CakeTestCase {
 /**
  * testSetApply method
  * @return void
- *
  */
 	public function testApply() {
 		$data = array(

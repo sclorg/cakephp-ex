@@ -4,8 +4,6 @@
  *
  * Test Case for view generation shell task
  *
- * PHP 5
- *
  * CakePHP : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -31,6 +29,7 @@ App::uses('ProjectTask', 'Console/Command/Task');
 App::uses('DbConfigTask', 'Console/Command/Task');
 App::uses('Model', 'Model');
 App::uses('Controller', 'Controller');
+App::uses('AppController', 'Controller');
 
 /**
  * Test View Task Comment Model
@@ -324,10 +323,11 @@ class ViewTaskTest extends CakeTestCase {
 	public function testBakeIndex() {
 		$this->Task->controllerName = 'ViewTaskComments';
 
+		$expected = file_get_contents(CAKE . 'Test' . DS . 'bake_compare' . DS . 'View' . DS . 'index.ctp');
 		$this->Task->expects($this->at(0))->method('createFile')
 			->with(
 				TMP . 'ViewTaskComments' . DS . 'index.ctp',
-				$this->stringContains("\$viewTaskComment['Article']['title']")
+				$expected
 			);
 		$this->Task->bake('index', true);
 	}

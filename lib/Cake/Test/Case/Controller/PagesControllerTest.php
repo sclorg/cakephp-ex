@@ -2,8 +2,6 @@
 /**
  * PagesControllerTest file
  *
- * PHP 5
- *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -76,5 +74,22 @@ class PagesControllerTest extends CakeTestCase {
 		Configure::write('debug', 1);
 		$Pages = new PagesController(new CakeRequest(null, false), new CakeResponse());
 		$Pages->display('non_existing_page');
+	}
+
+/**
+ * Test directory traversal protection
+ *
+ * @expectedException ForbiddenException
+ * @expectedExceptionCode 403
+ * @return void
+ */
+	public function testDirectoryTraversalProtection() {
+		App::build(array(
+			'View' => array(
+				CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS
+			)
+		));
+		$Pages = new PagesController(new CakeRequest(null, false), new CakeResponse());
+		$Pages->display('..', 'Posts', 'index');
 	}
 }

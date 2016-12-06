@@ -1,8 +1,5 @@
 <?php
 /**
- *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -23,4 +20,3 @@ $content = explode("\n", $content);
 foreach ($content as $line):
 	echo '<p> ' . $line . "</p>\n";
 endforeach;
-?>

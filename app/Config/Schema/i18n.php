@@ -4,8 +4,6 @@
  *
  * Use it to configure database for i18n
  *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -21,7 +19,6 @@
  */
 
 /**
- *
  * Using the Schema command line utility
  *
  * Use it to configure database for i18n
@@ -30,15 +27,37 @@
  */
 class I18nSchema extends CakeSchema {
 
+/**
+ * The name property
+ *
+ * @var string
+ */
 	public $name = 'i18n';
 
+/**
+ * Before callback.
+ *
+ * @param array $event Schema object properties
+ * @return bool Should process continue
+ */
 	public function before($event = array()) {
 		return true;
 	}
 
+/**
+ * After callback.
+ *
+ * @param array $event Schema object properties
+ * @return void
+ */
 	public function after($event = array()) {
 	}
 
+/**
+ * The i18n table definition
+ *
+ * @var array
+ */
 	public $i18n = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
 		'locale' => array('type' => 'string', 'null' => false, 'length' => 6, 'key' => 'index'),

@@ -2,8 +2,6 @@
 /**
  * Short description for file.
  *
- * PHP 5
- *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -19,7 +17,7 @@
  */
 
 /**
- * Class JoinABFixture
+ * JoinABFixture
  *
  * @package       Cake.Test.Fixture
  */
@@ -28,7 +26,7 @@ class JoinABFixture extends CakeTestFixture {
 /**
  * name property
  *
- * @var string 'JoinAsJoinB'
+ * @var string
  */
 	public $name = 'JoinAsJoinB';
 

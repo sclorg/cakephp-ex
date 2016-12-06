@@ -4,8 +4,6 @@
  *
  * TestCase for the JsHelper
  *
- * PHP 5
- *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -28,7 +26,7 @@ App::uses('View', 'View');
 App::uses('ClassRegistry', 'Utility');
 
 /**
- * Class JsEncodingObject
+ * JsEncodingObject
  *
  * @package       Cake.Test.Case.View.Helper
  */
@@ -43,7 +41,7 @@ class JsEncodingObject {
 }
 
 /**
- * Class OptionEngineHelper
+ * OptionEngineHelper
  *
  * @package       Cake.Test.Case.View.Helper
  */
@@ -176,13 +174,8 @@ class JsHelperTest extends CakeTestCase {
 	protected function _useMock() {
 		$request = new CakeRequest(null, false);
 
-		if (!class_exists('TestJsEngineHelper', false)) {
-			$this->getMock('JsBaseEngineHelper', array(), array($this->View), 'TestJsEngineHelper');
-		}
-
 		$this->Js = new JsHelper($this->View, array('TestJs'));
-		$this->Js->TestJsEngine = new TestJsEngineHelper($this->View);
-		$this->mockObjects[] = $this->Js->TestJsEngine;
+		$this->Js->TestJsEngine = $this->getMock('JsBaseEngineHelper', array(), array($this->View));
 		$this->Js->request = $request;
 		$this->Js->Html = new HtmlHelper($this->View);
 		$this->Js->Html->request = $request;
@@ -367,11 +360,11 @@ class JsHelperTest extends CakeTestCase {
  * @return void
  */
 	public function testWriteScriptsInFile() {
-		$this->skipIf(!is_writable(JS), 'webroot/js is not Writable, script caching test has been skipped.');
+		$this->skipIf(!is_writable(WWW_ROOT . 'js'), 'webroot/js is not Writable, script caching test has been skipped.');
 
 		Configure::write('Cache.disable', false);
 		$this->Js->request->webroot = '/';
-		$this->Js->JsBaseEngine = new TestJsEngineHelper($this->View);
+		$this->Js->JsBaseEngine = $this->getMock('JsBaseEngineHelper', array(), array($this->View));
 		$this->Js->buffer('one = 1;');
 		$this->Js->buffer('two = 2;');
 		$result = $this->Js->writeBuffer(array('onDomReady' => false, 'cache' => true));

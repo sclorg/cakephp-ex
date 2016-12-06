@@ -2,8 +2,6 @@
 /**
  * ConsoleErrorHandler Test case
  *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -145,6 +143,33 @@ class ConsoleErrorHandlerTest extends CakeTestCase {
 		$this->Error->expects($this->once())
 			->method('_stop')
 			->with(500);
+
+		$this->Error->handleException($exception);
+	}
+
+/**
+ * test a exception with non-integer code
+ *
+ * @return void
+ */
+	public function testNonIntegerExceptionCode() {
+		if (PHP_VERSION_ID < 50300) {
+			$this->markTestSkipped('ReflectionProperty::setAccessible() is available since 5.3');
+		}
+
+		$exception = new Exception('Non-integer exception code');
+
+		$class = new ReflectionClass('Exception');
+		$property = $class->getProperty('code');
+		$property->setAccessible(true);
+		$property->setValue($exception, '42S22');
+
+		ConsoleErrorHandler::$stderr->expects($this->once())->method('write')
+			->with($this->stringContains('Non-integer exception code'));
+
+		$this->Error->expects($this->once())
+			->method('_stop')
+			->with(1);
 
 		$this->Error->handleException($exception);
 	}

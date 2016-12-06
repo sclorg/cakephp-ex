@@ -4,8 +4,6 @@
  * NOTE: When testing on MySQL, you must set 'persistent' => false on *both* database connections,
  * or one connection will step on the other.
  *
- * PHP 5
- *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -23,7 +21,7 @@
 require_once dirname(__FILE__) . DS . 'ModelTestBase.php';
 
 /**
- * Class ModelCrossSchemaHabtmTest
+ * ModelCrossSchemaHabtmTest
  *
  * @package       Cake.Test.Case.Model
  */
@@ -42,14 +40,14 @@ class ModelCrossSchemaHabtmTest extends BaseModelTest {
 /**
  * Don't drop tables if they exist
  *
- * @var boolean
+ * @var bool
  */
 	public $dropTables = false;
 
 /**
  * Don't auto load fixtures
  *
- * @var boolean
+ * @var bool
  */
 	public $autoFixtures = false;
 

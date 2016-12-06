@@ -2,8 +2,6 @@
 /**
  * CrudAuthorizeTest file
  *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -25,7 +23,7 @@ App::uses('CakeRequest', 'Network');
 App::uses('CakeResponse', 'Network');
 
 /**
- * Class CrudAuthorizeTest
+ * CrudAuthorizeTest
  *
  * @package       Cake.Test.Case.Controller.Component.Auth
  */

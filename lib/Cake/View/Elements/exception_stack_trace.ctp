@@ -2,8 +2,6 @@
 /**
  * Prints a stack trace for an exception
  *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -47,7 +45,7 @@ App::uses('Debugger', 'Utility');
 		if (!empty($stack['args'])):
 			foreach ((array)$stack['args'] as $arg):
 				$args[] = Debugger::getType($arg);
-				$params[] = Debugger::exportVar($arg, 2);
+				$params[] = Debugger::exportVar($arg, 4);
 			endforeach;
 		endif;
 

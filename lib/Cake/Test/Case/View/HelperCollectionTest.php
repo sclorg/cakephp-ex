@@ -2,8 +2,6 @@
 /**
  * HelperCollectionTest file
  *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -29,7 +27,7 @@ class HtmlAliasHelper extends HtmlHelper {
 }
 
 /**
- * Class HelperCollectionTest
+ * HelperCollectionTest
  *
  * @package       Cake.Test.Case.View
  */

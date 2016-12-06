@@ -2,8 +2,6 @@
 /**
  * ObjectTest file
  *
- * PHP 5
- *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -18,6 +16,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+App::uses('CakeObject', 'Core');
 App::uses('Object', 'Core');
 App::uses('Router', 'Routing');
 App::uses('Controller', 'Controller');
@@ -75,7 +74,7 @@ class RequestActionController extends Controller {
 /**
  * normal_request_action method
  *
- * @return void
+ * @return string Hello World!
  */
 	public function normal_request_action() {
 		return 'Hello World';
@@ -84,7 +83,7 @@ class RequestActionController extends Controller {
 /**
  * returns $this->here
  *
- * @return void
+ * @return string $this->here.
  */
 	public function return_here() {
 		return $this->here;
@@ -93,7 +92,7 @@ class RequestActionController extends Controller {
 /**
  * paginate_request_action method
  *
- * @return void
+ * @return true
  */
 	public function paginate_request_action() {
 		$this->paginate();
@@ -130,11 +129,11 @@ class RequestActionController extends Controller {
 }
 
 /**
- * TestObject class
+ * TestCakeObject class
  *
  * @package       Cake.Test.Case.Core
  */
-class TestObject extends Object {
+class TestCakeObject extends CakeObject {
 
 /**
  * firstName property
@@ -253,8 +252,9 @@ class TestObject extends Object {
 	}
 
 /**
- * undocumented function
+ * Set properties.
  *
+ * @param array $properties The $properties.
  * @return void
  */
 	public function set($properties = array()) {
@@ -275,7 +275,7 @@ class ObjectTestModel extends CakeTestModel {
 }
 
 /**
- * Object Test class
+ * CakeObject Test class
  *
  * @package       Cake.Test.Case.Core
  */
@@ -295,7 +295,7 @@ class ObjectTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->object = new TestObject();
+		$this->object = new TestCakeObject();
 	}
 
 /**
@@ -366,7 +366,7 @@ class ObjectTest extends CakeTestCase {
  */
 	public function testToString() {
 		$result = strtolower($this->object->toString());
-		$this->assertEquals('testobject', $result);
+		$this->assertEquals('testcakeobject', $result);
 	}
 
 /**
@@ -377,62 +377,62 @@ class ObjectTest extends CakeTestCase {
 	public function testMethodDispatching() {
 		$this->object->emptyMethod();
 		$expected = array('emptyMethod');
-		$this->assertSame($this->object->methodCalls, $expected);
+		$this->assertSame($expected, $this->object->methodCalls);
 
 		$this->object->oneParamMethod('Hello');
 		$expected[] = array('oneParamMethod' => array('Hello'));
-		$this->assertSame($this->object->methodCalls, $expected);
+		$this->assertSame($expected, $this->object->methodCalls);
 
 		$this->object->twoParamMethod(true, false);
 		$expected[] = array('twoParamMethod' => array(true, false));
-		$this->assertSame($this->object->methodCalls, $expected);
+		$this->assertSame($expected, $this->object->methodCalls);
 
 		$this->object->threeParamMethod(true, false, null);
 		$expected[] = array('threeParamMethod' => array(true, false, null));
-		$this->assertSame($this->object->methodCalls, $expected);
+		$this->assertSame($expected, $this->object->methodCalls);
 
 		$this->object->crazyMethod(1, 2, 3, 4, 5, 6, 7);
 		$expected[] = array('crazyMethod' => array(1, 2, 3, 4, 5, 6, 7));
-		$this->assertSame($this->object->methodCalls, $expected);
+		$this->assertSame($expected, $this->object->methodCalls);
 
-		$this->object = new TestObject();
+		$this->object = new TestCakeObject();
 		$this->assertSame($this->object->methodCalls, array());
 
 		$this->object->dispatchMethod('emptyMethod');
 		$expected = array('emptyMethod');
-		$this->assertSame($this->object->methodCalls, $expected);
+		$this->assertSame($expected, $this->object->methodCalls);
 
 		$this->object->dispatchMethod('oneParamMethod', array('Hello'));
 		$expected[] = array('oneParamMethod' => array('Hello'));
-		$this->assertSame($this->object->methodCalls, $expected);
+		$this->assertSame($expected, $this->object->methodCalls);
 
 		$this->object->dispatchMethod('twoParamMethod', array(true, false));
 		$expected[] = array('twoParamMethod' => array(true, false));
-		$this->assertSame($this->object->methodCalls, $expected);
+		$this->assertSame($expected, $this->object->methodCalls);
 
 		$this->object->dispatchMethod('threeParamMethod', array(true, false, null));
 		$expected[] = array('threeParamMethod' => array(true, false, null));
-		$this->assertSame($this->object->methodCalls, $expected);
+		$this->assertSame($expected, $this->object->methodCalls);
 
 		$this->object->dispatchMethod('fourParamMethod', array(1, 2, 3, 4));
 		$expected[] = array('fourParamMethod' => array(1, 2, 3, 4));
-		$this->assertSame($this->object->methodCalls, $expected);
+		$this->assertSame($expected, $this->object->methodCalls);
 
 		$this->object->dispatchMethod('fiveParamMethod', array(1, 2, 3, 4, 5));
 		$expected[] = array('fiveParamMethod' => array(1, 2, 3, 4, 5));
-		$this->assertSame($this->object->methodCalls, $expected);
+		$this->assertSame($expected, $this->object->methodCalls);
 
 		$this->object->dispatchMethod('crazyMethod', array(1, 2, 3, 4, 5, 6, 7));
 		$expected[] = array('crazyMethod' => array(1, 2, 3, 4, 5, 6, 7));
-		$this->assertSame($this->object->methodCalls, $expected);
+		$this->assertSame($expected, $this->object->methodCalls);
 
 		$this->object->dispatchMethod('methodWithOptionalParam', array('Hello'));
 		$expected[] = array('methodWithOptionalParam' => array("Hello"));
-		$this->assertSame($this->object->methodCalls, $expected);
+		$this->assertSame($expected, $this->object->methodCalls);
 
 		$this->object->dispatchMethod('methodWithOptionalParam');
 		$expected[] = array('methodWithOptionalParam' => array(null));
-		$this->assertSame($this->object->methodCalls, $expected);
+		$this->assertSame($expected, $this->object->methodCalls);
 	}
 
 /**
@@ -677,5 +677,16 @@ class ObjectTest extends CakeTestCase {
 			array('data' => $data)
 		);
 		$this->assertEquals($data, $result);
+	}
+
+/**
+ * Test backward compatibility
+ *
+ * @return voind
+ */
+	public function testBackwardCompatibility() {
+		$this->skipIf(version_compare(PHP_VERSION, '7.0.0', '>='));
+
+		$this->assertInstanceOf('Object', new ObjectTestModel);
 	}
 }
