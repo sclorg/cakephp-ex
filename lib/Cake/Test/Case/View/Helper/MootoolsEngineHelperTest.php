@@ -2,8 +2,6 @@
 /**
  * MooEngineTestCase
  *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -23,7 +21,7 @@ App::uses('JsHelper', 'View/Helper');
 App::uses('MootoolsEngineHelper', 'View/Helper');
 
 /**
- * Class MootoolsEngineHelperTest
+ * MootoolsEngineHelperTest
  *
  * @package       Cake.Test.Case.View.Helper
  */

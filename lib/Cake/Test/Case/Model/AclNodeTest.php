@@ -2,8 +2,6 @@
 /**
  * AclNodeTest file
  *
- * PHP 5
- *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -38,7 +36,7 @@ class DbAclNodeTestBase extends AclNode {
 /**
  * cacheSources property
  *
- * @var boolean
+ * @var bool
  */
 	public $cacheSources = false;
 }
@@ -104,7 +102,7 @@ class DbPermissionTest extends CakeTestModel {
 /**
  * cacheQueries property
  *
- * @var boolean
+ * @var bool
  */
 	public $cacheQueries = false;
 
@@ -183,8 +181,7 @@ class DbAroUserTest extends CakeTestModel {
 class TestDbAcl extends DbAcl {
 
 /**
- * construct method
- *
+ * Constructor
  */
 	public function __construct() {
 		$this->Aro = new DbAroTest();

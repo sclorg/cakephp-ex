@@ -2,8 +2,6 @@
 /**
  * LogEngineCollectionTest file
  *
- * PHP 5
- *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -17,6 +15,7 @@
  * @since         CakePHP(tm) v 2.4
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
 App::uses('LogEngineCollection', 'Log');
 App::uses('FileLog', 'Log/Engine');
 

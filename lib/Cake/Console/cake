@@ -2,7 +2,6 @@
 ################################################################################
 #
 # Bake is a shell script for running CakePHP bake script
-# PHP 5
 #
 # CakePHP(tm) :  Rapid Development Framework (http://cakephp.org)
 # Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -25,12 +24,12 @@ canonicalize() {
 	if [ -f "$NAME" ]
 	then
 		DIR=$(dirname -- "$NAME")
-		NAME=$(cd -P "$DIR" && pwd -P)/$(basename -- "$NAME")
+		NAME=$(cd -P "$DIR" > /dev/null && pwd -P)/$(basename -- "$NAME")
 	fi
 	while [ -h "$NAME" ]; do
 		DIR=$(dirname -- "$NAME")
 		SYM=$(readlink "$NAME")
-		NAME=$(cd "$DIR" && cd $(dirname -- "$SYM") && pwd)/$(basename -- "$SYM")
+		NAME=$(cd "$DIR" > /dev/null && cd $(dirname -- "$SYM") > /dev/null && pwd)/$(basename -- "$SYM")
 	done
 	echo "$NAME"
 }

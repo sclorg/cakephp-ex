@@ -2,8 +2,6 @@
 /**
  * Base class for Bake Tasks.
  *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -43,7 +41,7 @@ class BakeTask extends AppShell {
 /**
  * Flag for interactive mode
  *
- * @var boolean
+ * @var bool
  */
 	public $interactive = false;
 

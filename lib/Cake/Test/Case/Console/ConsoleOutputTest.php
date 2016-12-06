@@ -2,8 +2,6 @@
 /**
  * ConsoleOutputTest file
  *
- * PHP 5
- *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -21,7 +19,7 @@
 App::uses('ConsoleOutput', 'Console');
 
 /**
- * Class ConsoleOutputTest
+ * ConsoleOutputTest
  *
  * @package       Cake.Test.Case.Console
  */
@@ -94,6 +92,27 @@ class ConsoleOutputTest extends CakeTestCase {
 			->with('Line' . PHP_EOL . 'Line' . PHP_EOL . 'Line' . PHP_EOL);
 
 		$this->output->write(array('Line', 'Line', 'Line'));
+	}
+
+/**
+ * test writing an array of messages.
+ *
+ * @return void
+ */
+	public function testOverwrite() {
+		$testString = "Text";
+
+		$this->output->expects($this->at(0))->method('_write')
+			->with($testString);
+
+		$this->output->expects($this->at(1))->method('_write')
+			->with("");
+
+		$this->output->expects($this->at(2))->method('_write')
+			->with("Overwriting text");
+
+		$this->output->write($testString, 0);
+		$this->output->overwrite("Overwriting text");
 	}
 
 /**
@@ -231,6 +250,17 @@ class ConsoleOutputTest extends CakeTestCase {
 			->with('Bad Regular');
 
 		$this->output->write('<error>Bad</error> Regular', false);
+	}
+
+/**
+ * test plain output when php://output, as php://output is
+ * not compatible with posix_ functions.
+ *
+ * @return void
+ */
+	public function testOutputAsPlainWhenOutputStream() {
+		$output = $this->getMock('ConsoleOutput', array('_write'), array('php://output'));
+		$this->assertEquals(ConsoleOutput::PLAIN, $output->outputAs());
 	}
 
 /**

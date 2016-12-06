@@ -2,10 +2,6 @@
 /**
  * Test Plugin Post Model
  *
- *
- *
- * PHP 5
- *
  * CakePHP : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -21,7 +17,7 @@
  */
 
 /**
- * Class TestPluginPost
+ * TestPluginPost
  *
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Model
  */

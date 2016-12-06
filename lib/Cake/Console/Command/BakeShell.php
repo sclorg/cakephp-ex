@@ -6,8 +6,6 @@
  * application development by writing fully functional skeleton controllers,
  * models, and views. Going further, Bake can also write Unit Tests for you.
  *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -205,18 +203,19 @@ class BakeShell extends AppShell {
 	}
 
 /**
- * get the option parser.
+ * Gets the option parser instance and configures it.
  *
- * @return void
+ * @return ConsoleOptionParser
  */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
-		return $parser->description(__d('cake_console',
-			'The Bake script generates controllers, views and models for your application.' .
+
+		$parser->description(
+			__d('cake_console',	'The Bake script generates controllers, views and models for your application.' .
 			' If run with no command line arguments, Bake guides the user through the class creation process.' .
-			' You can customize the generation process by telling Bake where different parts of your application are using command line arguments.'
-		))->addSubcommand('all', array(
-			'help' => __d('cake_console', 'Bake a complete MVC. optional <name> of a Model'),
+			' You can customize the generation process by telling Bake where different parts of your application are using command line arguments.')
+		)->addSubcommand('all', array(
+			'help' => __d('cake_console', 'Bake a complete MVC. optional <name> of a Model')
 		))->addSubcommand('project', array(
 			'help' => __d('cake_console', 'Bake a new app folder in the path supplied or in current directory if no path is specified'),
 			'parser' => $this->Project->getOptionParser()
@@ -249,6 +248,8 @@ class BakeShell extends AppShell {
 			'short' => 't',
 			'help' => __d('cake_console', 'Theme to use when baking code.')
 		));
+
+		return $parser;
 	}
 
 }
