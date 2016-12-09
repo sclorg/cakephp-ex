@@ -89,7 +89,7 @@ You will then need to rebuild the application.  This is done via either a `oc st
 
 ### Hot Deploy
 
-In order to immediately pick up changes made in your application source code, you need to run your built image with the `OPCACHE_REVALIDATE_FREQ=0` parameter to the [oc new-app](https://docs.openshift.org/latest/cli_reference/basic_cli_operations.html#basic-cli-operations) command, while performing the [installation steps](https://github.com/openshift/rails-ex#installation) described in this README.
+In order to immediately pick up changes made in your application source code, you need to run your built image with the `OPCACHE_REVALIDATE_FREQ=0` parameter to the [oc new-app](https://docs.openshift.org/latest/cli_reference/basic_cli_operations.html#basic-cli-operations) command, while performing the [installation steps](https://github.com/openshift/cakephp-ex#installation) described in this README.
 
 	$ oc new-app openshift/templates/cakephp-mysql.json -p OPCACHE_REVALIDATE_FREQ=0
 
