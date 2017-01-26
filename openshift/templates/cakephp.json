@@ -126,7 +126,10 @@
               "secret": "${GITHUB_WEBHOOK_SECRET}"
             }
           }
-        ]
+        ],
+        "postCommit": {
+          "script": "./lib/Cake/Console/cake test app AllTests"
+        }
       }
     },
     {
