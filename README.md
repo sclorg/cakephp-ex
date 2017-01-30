@@ -101,5 +101,15 @@ To change your source code in the running container you need to [oc rsh](https:/
 
 After you [oc rsh](https://docs.openshift.org/latest/cli_reference/basic_cli_operations.html#troubleshooting-and-debugging-cli-operations) into the running container, your current directory is set to `/opt/app-root/src`, where the source code is located.
 
+###Source repository layout
+
+You do not need to change anything in your existing PHP project's repository.
+However, if these files exist they will affect the behavior of the build process:
+
+* **composer.json**
+
+  List of dependencies to be installed with `composer`. The format is documented
+  [here](https://getcomposer.org/doc/04-schema.md).
+
 ###License
 This code is dedicated to the public domain to the maximum extent permitted by applicable law, pursuant to [CC0](http://creativecommons.org/publicdomain/zero/1.0/).

@@ -31,29 +31,31 @@ $_default_keys = array(
 );
 
 // This function gets called by openshift_secure and passes an array
-function make_secure_key($args) {
-  $hash = $args['hash'];
-  $key  = $args['variable'];
-  $original = $args['original'];
+if (!function_exists('make_secure_key')) {
+  function make_secure_key($args) {
+    $hash = $args['hash'];
+    $key  = $args['variable'];
+    $original = $args['original'];
 
-  $chars = '0123456789';
-  if ($key != 'Security.cipherSeed') {
-    $chars .= 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $chars .= '!@#$%^&*()';
-    $chars .= '-_ []{}<>~`+=,.;:/?|';
-  }
+    $chars = '0123456789';
+    if ($key != 'Security.cipherSeed') {
+      $chars .= 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $chars .= '!@#$%^&*()';
+      $chars .= '-_ []{}<>~`+=,.;:/?|';
+    }
 
-  // Convert the hash to an int to seed the RNG
-  srand(hexdec(substr($hash,0,8)));
-  // Create a random string the same length as the default
-  $val = '';
-  for($i = 1; $i <= strlen($original); $i++){
-    $val .= substr( $chars, rand(0,strlen($chars))-1, 1);
+    // Convert the hash to an int to seed the RNG
+    srand(hexdec(substr($hash,0,8)));
+    // Create a random string the same length as the default
+    $val = '';
+    for($i = 1; $i <= strlen($original); $i++){
+      $val .= substr( $chars, rand(0,strlen($chars))-1, 1);
+    }
+    // Reset the RNG
+    srand();
+    // Set the value
+    return $val;
   }
-  // Reset the RNG
-  srand();
-  // Set the value
-  return $val;
 }
 
 // Generate OpenShift secure keys (or return defaults if not on OpenShift)
