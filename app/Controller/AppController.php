@@ -34,5 +34,5 @@ class AppController extends Controller {
 	/**
 	 * Add in the DebugKit toolbar
 	 */
-	public $components = rray('DebugKit.Toolbar');
+	public $components = array('DebugKit.Toolbar');
 }
