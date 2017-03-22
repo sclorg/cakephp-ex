@@ -37,6 +37,6 @@ define('WWW_ROOT', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS);
 if (!defined('CAKE_CORE_INCLUDE_PATH')) {
 	define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
 	
-	something added in feature-branch
+	something added in feature-branch nnnnnn
 }
 
