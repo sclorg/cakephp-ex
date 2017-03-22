@@ -299,7 +299,7 @@ oc deploy cakephp-mysql-example --latest
                 <h3>Command Line</h3>
                 <p>With the <a href="http://docs.openshift.org/latest/cli_reference/overview.html">OpenShift command line interface</a> (CLI), you can create applications and manage projects from a terminal.</p>
 
-                <h2>Development Resources</h2>
+                <h2>Developmennnnnnnnnnnnnnt Resources</h2>
                   <ul>
                     <li><a href="http://docs.openshift.org/latest/welcome/index.html">OpenShift Documentation</a></li>
                     <li><a href="https://github.com/openshift/origin">Openshift Origin GitHub</a></li>
