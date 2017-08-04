@@ -1,3 +1,22 @@
+
+
+<!-- toc -->
+
+- [CakePHP Sample App on OpenShift](#cakephp-sample-app-on-openshift)
+  * [OpenShift Considerations](#openshift-considerations)
+    + [Security](#security)
+    + [Installation:](#installation)
+    + [Debugging Unexpected Failures](#debugging-unexpected-failures)
+    + [Installation: With MySQL](#installation-with-mysql)
+    + [Adding Webhooks and Making Code Changes](#adding-webhooks-and-making-code-changes)
+    + [Enabling the Database example](#enabling-the-database-example)
+    + [Hot Deploy](#hot-deploy)
+    + [Source repository layout](#source-repository-layout)
+    + [Compatibility](#compatibility)
+    + [License](#license)
+
+<!-- tocstop -->
+
 CakePHP Sample App on OpenShift
 ===============================
 
@@ -11,10 +30,10 @@ OpenShift Considerations
 ------------------------
 These are some special considerations you may need to keep in mind when running your application on OpenShift.
 
-###Security
+### Security
 Since the quickstarts are shared code, we had to take special consideration to ensure that security related configuration variable values are unique across applications. To accomplish this, we modified some of the configuration files. Namely we changed Security.salt and Security.cipherSeed values in the app/Config/core.php config file. Those values are now generated from the application template as CAKEPHP_SECURITY_SALT and CAKEPHP_SECURITY_CIPHER_SEED. Also the secret token is generated in the template as CAKEPHP_SECRET_TOKEN. From these values the session hashes are generated. Now instead of using the same default values, OpenShift can generate these values using the generate from logic defined within the instant application's template.
 
-###Installation:
+### Installation:
 These steps assume your OpenShift deployment has the default set of ImageStreams defined.  Instructions for installing the default ImageStreams are available [here](https://docs.openshift.org/latest/install_config/imagestreams_templates.html#creating-image-streams-for-openshift-images).  If you are defining the set of ImageStreams now, remember to pass in the proper cluster-admin credentials and to create the ImageStreams in the 'openshift' namespace.
 
 1. Fork a copy of [cakephp-ex](https://github.com/openshift/cakephp-ex)
@@ -55,11 +74,11 @@ These steps assume your OpenShift deployment has the default set of ImageStreams
 In this case, the IP for cakephp-example is 172.30.97.123 and it is on port 8080.  
 *Note*: you can also get this information from the web console.
 
-###Debugging Unexpected Failures
+### Debugging Unexpected Failures
 
 Review some of the common tips and suggestions [here](https://github.com/openshift/origin/blob/master/docs/debugging-openshift.md).
 
-###Installation: With MySQL
+### Installation: With MySQL
 1. Follow the steps for the Manual Installation above for all but step 3, instead use step 2 below.  
   - Note: The output in steps 5-6 may also display information about your database.
 2. Add a PHP application from the cakephp-mysql template and specify the source url to be your forked repo  
@@ -67,7 +86,7 @@ Review some of the common tips and suggestions [here](https://github.com/openshi
 		$ oc new-app openshift/templates/cakephp-mysql.json -p SOURCE_REPOSITORY_URL=<your repository location>
 
 
-###Adding Webhooks and Making Code Changes
+### Adding Webhooks and Making Code Changes
 Since OpenShift V3 does not provide a git repository out of the box, you can configure your github repository to make a webhook call whenever you push your code.
 
 1. From the Web Console homepage, navigate to your project
@@ -80,7 +99,7 @@ Since OpenShift V3 does not provide a git repository out of the box, you can con
 8. Leave the defaults for the remaining fields - That's it!
 9. After you save your webhook, if you refresh your settings page you can see the status of the ping that Github sent to OpenShift to verify it can reach the server.  
 
-###Enabling the Database example
+### Enabling the Database example
 In order to access the example CakePHP home page, which contains application stats including database connectivity, you have to go into the app/View/Layouts/ directory, remove the default.ctp and after that rename default.ctp.default into default.ctp`.
 
 It will also be necessary to update your application to talk to your database back-end. The app/Config/database.php file used by CakePHP was set up in such a way that it will accept environment variables for your connection information that you pass to it. Once an administrator has created a MySQL database service for you to connect with you can add the following environment variables to your deploymentConfig to ensure all your cakephp-example pods have access to these environment variables. Note: the cakephp-mysql.json template creates the DB service and environment variables for you.
@@ -101,7 +120,7 @@ To change your source code in the running container you need to [oc rsh](https:/
 
 After you [oc rsh](https://docs.openshift.org/latest/cli_reference/basic_cli_operations.html#troubleshooting-and-debugging-cli-operations) into the running container, your current directory is set to `/opt/app-root/src`, where the source code is located.
 
-###Source repository layout
+### Source repository layout
 
 You do not need to change anything in your existing PHP project's repository.
 However, if these files exist they will affect the behavior of the build process:
@@ -111,5 +130,9 @@ However, if these files exist they will affect the behavior of the build process
   List of dependencies to be installed with `composer`. The format is documented
   [here](https://getcomposer.org/doc/04-schema.md).
 
-###License
+### Compatibility
+
+This repository is compatible with PHP 5.6 and higher, excluding any alpha or beta versions.
+
+### License
 This code is dedicated to the public domain to the maximum extent permitted by applicable law, pursuant to [CC0](http://creativecommons.org/publicdomain/zero/1.0/).
