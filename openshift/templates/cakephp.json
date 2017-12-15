@@ -104,7 +104,7 @@
             "from": {
               "kind": "ImageStreamTag",
               "namespace": "${NAMESPACE}",
-              "name": "php:7.0"
+              "name": "php:${PHP_VERSION}"
             },
             "env":  [
               {
@@ -267,6 +267,13 @@
       "description": "The OpenShift Namespace where the ImageStream resides.",
       "required": true,
       "value": "openshift"
+    },
+    {
+      "name": "PHP_VERSION",
+      "displayName": "PHP Version",
+      "description": "Version of PHP image to be used (5.6, 7.0, 7.1 or latest).",
+      "required": true,
+      "value": "7.1"
     },
     {
       "name": "MEMORY_LIMIT",
