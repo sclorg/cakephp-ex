@@ -195,6 +195,7 @@
                 "readinessProbe": {
                   "timeoutSeconds": 3,
                   "initialDelaySeconds": 3,
+                  "periodSeconds": 60,
                   "httpGet": {
                     "path": "/",
                     "port": 8080
@@ -203,6 +204,7 @@
                 "livenessProbe": {
                   "timeoutSeconds": 3,
                   "initialDelaySeconds": 30,
+                  "periodSeconds": 60,
                   "httpGet": {
                     "path": "/",
                     "port": 8080
