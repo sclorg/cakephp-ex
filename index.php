@@ -1,4 +1,5 @@
 <?php
+echo 'HOLA';
 /**
  * Requests collector.
  *
