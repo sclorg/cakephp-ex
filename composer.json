@@ -5,25 +5,23 @@
 	"type": "project",
 	"license": "MIT",
 	"require": {
-		"php": ">=5.6",
-		"cakephp/cakephp": "3.5.*",
-		"cakephp/migrations": "^1.0",
-		"cakephp/plugin-installer": "^1.0",
-		"josegonzalez/dotenv": "3.*",
-		"mobiledetect/mobiledetectlib": "2.*"
+                "php": ">=5.6",
+                "cakephp/cakephp": "3.6.*",
+                "cakephp/migrations": "^1.8.0",
+                "cakephp/plugin-installer": "^1.0",
+                "josegonzalez/dotenv": "3.*",
+                "mobiledetect/mobiledetectlib": "2.*"
 	},
 	"require-dev": {
 		"cakephp/bake": "^1.1",
 		"cakephp/cakephp-codesniffer": "^3.0",
-		"cakephp/debug_kit": "^3.2",
+		"cakephp/debug_kit": "^3.15.0",
 		"phpunit/phpunit": "^5.7|^6.0",
 		"psy/psysh": "@stable"
 	},
 	"suggest": {
 		"markstory/asset_compress": "An asset compression plugin which provides file concatenation and a flexible filter system for preprocessing and minification.",
-		"dereuromark/cakephp-ide-helper": "After baking your code, this keeps your annotations in sync with the code evolving from there on for maximum IDE and PHPStan compatibility.",
-		"phpunit/phpunit": "Allows automated tests to be run without system-wide install.",
-		"cakephp/cakephp-codesniffer": "Allows to check the code against the coding standards used in CakePHP."
+		"dereuromark/cakephp-ide-helper": "After baking your code, this keeps your annotations in sync with the code evolving from there on for maximum IDE and PHPStan compatibility."
 	},
 	"autoload": {
 		"psr-4": {
