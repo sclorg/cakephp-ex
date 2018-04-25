@@ -1,22 +1,10 @@
-# User specific & automatically generated files #
-#################################################
-/app/Config/database.php
-/app/tmp
-/lib/Cake/Console/Templates/skel/tmp/
-/plugins
-/vendors
-/build
-/dist
-/tags
-*.mo
-
-# IDE and editor specific files #
-#################################
-/nbproject
-.idea
-/.project
-/.buildpath
-/.settings/
+# CakePHP specific files #
+##########################
+/config/app.php
+/config/.env
+/logs/*
+/tmp/*
+/vendor/*
 
 # OS generated files #
 ######################
@@ -28,4 +16,25 @@
 Icon?
 ehthumbs.db
 Thumbs.db
-app/Vendor/*
+
+# Tool specific files #
+#######################
+# vim
+*~
+*.swp
+*.swo
+# sublime text & textmate
+*.sublime-*
+*.stTheme.cache
+*.tmlanguage.cache
+*.tmPreferences.cache
+# Eclipse
+.settings/*
+# JetBrains, aka PHPStorm, IntelliJ IDEA
+.idea/*
+# NetBeans
+nbproject/*
+# Visual Studio Code
+.vscode
+# Sass preprocessor
+.sass-cache/
