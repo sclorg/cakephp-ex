@@ -29,7 +29,8 @@
       },
       "stringData" : {
         "cakephp-secret-token" : "${CAKEPHP_SECRET_TOKEN}",
-        "cakephp-security-salt" : "${CAKEPHP_SECURITY_SALT}"
+        "cakephp-security-salt" : "${CAKEPHP_SECURITY_SALT}",
+        "cakephp-security-cipher-seed" : "${CAKEPHP_SECURITY_CIPHER_SEED}"
       }
     },
     {
@@ -134,7 +135,7 @@
           }
         ],
         "postCommit": {
-          "script": "./vendor/bin/phpunit"
+          "script": "./lib/Cake/Console/cake test app AllTests"
         }
       }
     },
@@ -229,6 +230,15 @@
                     }
                   },
                   {
+                    "name": "CAKEPHP_SECURITY_CIPHER_SEED",
+                    "valueFrom": {
+                      "secretKeyRef" : {
+                        "name" : "${NAME}",
+                        "key" : "cakephp-security-cipher-seed"
+                      }
+                    }
+                  },
+                  {
                     "name": "OPCACHE_REVALIDATE_FREQ",
                     "value": "${OPCACHE_REVALIDATE_FREQ}"
                   }
@@ -317,6 +327,13 @@
       "description": "Security salt for session hash.",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
+    },
+    {
+      "name": "CAKEPHP_SECURITY_CIPHER_SEED",
+      "displayName": "CakePHP Security Cipher Seed",
+      "description": "Security cipher seed for session hash.",
+      "generate": "expression",
+      "from": "[0-9]{30}"
     },
     {
       "name": "OPCACHE_REVALIDATE_FREQ",
