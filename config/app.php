@@ -257,18 +257,18 @@ return [
     'Datasources' => [
         'default' => [
             'className' => 'Cake\Database\Connection',
-            'driver' => 'Cake\Database\Driver\\' . ucfirst(getenv('DATABASE_ENGINE')),
+            'driver' => 'Cake\Database\Driver\\' . ucfirst(env('DATABASE_ENGINE', 'Mysql')),
             'persistent' => false,
-            'host' => getenv(strtoupper(getenv("DATABASE_SERVICE_NAME"))."_SERVICE_HOST"),
+            'host' => env(strtoupper(env("DATABASE_SERVICE_NAME", 'Mysql'))."_SERVICE_HOST", ''),
             /**
              * CakePHP will use the default DB port based on the driver selected
              * MySQL on MAMP uses port 8889, MAMP users will want to uncomment
              * the following line and set the port accordingly
              */
-            'port' => getenv(strtoupper(getenv("DATABASE_SERVICE_NAME"))."_SERVICE_PORT"),
-            'username' => getenv("DATABASE_USER"),
-            'password' => getenv("DATABASE_PASSWORD"),
-            'database' => getenv("DATABASE_NAME"),
+            'port' => env(strtoupper(env("DATABASE_SERVICE_NAME", 'Mysql'))."_SERVICE_PORT", ''),
+            'username' => env("DATABASE_USER", ''),
+            'password' => env("DATABASE_PASSWORD", ''),
+            'database' => env("DATABASE_NAME", ''),
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
@@ -302,7 +302,7 @@ return [
          */
         'test' => [
             'className' => 'Cake\Database\Connection',
-            'driver' => 'Cake\Database\Driver\\' . ucfirst(getenv('DATABASE_ENGINE')),
+            'driver' => 'Cake\Database\Driver\\' . ucfirst(env('DATABASE_ENGINE', 'Mysql')),
             'persistent' => false,
             'database' => 'test_database',
             'encoding' => 'utf8',

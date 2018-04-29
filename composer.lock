@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "ac911cb6687b65bfe5e5b520621ab0d6",
@@ -54,16 +54,16 @@
         },
         {
             "name": "cakephp/cakephp",
-            "version": "3.6.1",
+            "version": "3.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "7f97eafa1a95df71ba30b85b744a56c708148467"
+                "reference": "9739f275edd4f97c2a50dc028d870ce51e7aa058"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/7f97eafa1a95df71ba30b85b744a56c708148467",
-                "reference": "7f97eafa1a95df71ba30b85b744a56c708148467",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/9739f275edd4f97c2a50dc028d870ce51e7aa058",
+                "reference": "9739f275edd4f97c2a50dc028d870ce51e7aa058",
                 "shasum": ""
             },
             "require": {
@@ -136,7 +136,7 @@
                 "rapid-development",
                 "validation"
             ],
-            "time": "2018-04-20T01:11:49+00:00"
+            "time": "2018-04-28T02:02:20+00:00"
         },
         {
             "name": "cakephp/chronos",
