@@ -6,7 +6,7 @@
 
               <h2>Deploying code changes</h2>
                 <p>
-                  The source code for this application is available to be forked from the <a href="https://www.github.com/sclorg/cakephp-ex">OpenShift GitHub repository</a>.
+                  The source code for this application is available to be forked from the <a href="https://www.github.com/redhat-gpte-devopsautomation/cakephp-ex">OpenShift GitHub repository</a>.
                   You can configure a webhook in your repository to make OpenShift automatically start a build whenever you push your code:
                 </p>
 
@@ -44,7 +44,7 @@ $ git push</pre>
                   <p>
                   It will also be necessary to update your application to talk to your database back-end.  The <code>config/app.php</code> file used by CakePHP was set up in such a way that it will accept environment variables for your connection information that you pass to it.
                   Once an administrator has created a MySQL database service for you to connect with you can add the following environment variables to your deploymentConfig to ensure all your frontend pods have access to these environment variables.
-                  Note: the cakephp-mysql.json template creates the DB service and environment variables for you.
+                  Note: the cakephp-mysql.yml template creates the DB service and environment variables for you.
 
 <pre>
 oc env dc/cakephp-mysql-example DATABASE_SERVICE_NAME=&lt;database service name&gt;
