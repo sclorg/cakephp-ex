@@ -76,6 +76,102 @@ These steps assume your OpenShift deployment has the default set of ImageStreams
 In this case, the IP for cakephp-example is 172.30.97.123 and it is on port 8080.  
 *Note*: you can also get this information from the web console.
 
+### Multi-Project Installation
+The basic templates provide a single-project configuration of the CakePHP example. 
+
+#### Template Parameters
+
+The provided OpenShift multi-project templates use parameters to configure the following namespaces:
+
+* `BUILD_NAMESPACE` - The OpenShift Namespace where the ImageStream and BuildConfig reside.
+
+* `DATABASE_NAMESPACE` - The OpenShift Namespace where the Database deployment and service reside.
+
+* `FRONTEND_NAMESPACE` - The OpenShift Namespace where the Frontend application deployment, route, and service reside.
+
+Template parameters for all templates may be configured in a common parameter file, for example:
+
+```
+NAME: "cakephp"
+VERSION: "0.1"
+BUILD_NAMESPACE: "cakephp-example-build"
+DATABASE_NAMESPACE: "cakephp-example-database"
+FRONTEND_NAMESPACE: "cakephp-example-frontend"
+VOLUME_CAPACITY: "10Gi"
+```
+
+An example parameters file is provided at `openshift/multi-project-templates/parameters.yml`.
+
+#### Project Creation
+
+The first step in a multi-project installation is to create the projects. This step may be accomplished by use of the provided template with cluster-admin access rights.
+
+```
+oc process --local \
+--param-file=openshift/multi-project-templates/parameters.yml \
+--ignore-unknown-parameters \
+-f openshift/multi-project-templates/cakephp-namespaces.yml \
+| oc apply -f -
+```
+
+These project namespaces can also be created with `oc new-project`:
+
+```
+oc new-project ${BUILD_NAMESPACE}
+oc new-project ${DATABASE_NAMESPACE}
+oc new-project ${FRONTEND_NAMESPACE}
+```
+
+#### Project Initialization
+
+Within the CakePHP projects resources such as secrets and persistent volume claims should be created initially and not subsequently recreated or updated. Secrets are created in the frontend and database namespaces for the generated database credentials.
+
+```
+oc process --local \
+--param-file=openshift/multi-project-templates/parameters.yml \
+--ignore-unknown-parameters \
+-f openshift/multi-project-templates/cakephp-namespace-init.yml \
+| oc create -f -
+```
+
+#### MySQL Database Deployment
+
+The MySQL persistent database is deployed as follows:
+
+```
+oc process --local \
+--param-file=openshift/multi-project-templates/parameters.yml \
+--ignore-unknown-parameters \
+-f openshift/multi-project-templates/cakephp-mysql-persistent.yml \
+| oc apply -f -
+```
+
+#### Building the Frontend Application
+
+To build the application, configure the application build config with the provided build template. Note the use of the `VERSION` parameter. This will update the build config to set the output image tag and will automatically trigger a build through the ConfigChange trigger.
+
+```
+oc process --local \
+--param=VERSION=0.1 \
+--param-file=openshift/multi-project-templates/parameters.yml \
+--ignore-unknown-parameters \
+-f openshift/multi-project-templates/cakephp-build.yml \
+| oc apply -f -
+```
+
+#### Deploying the Frontend Application
+
+To configure and deploy a new version of the frontend application for a MySQL database backend, use the provided `cakephp-mysql-frontend.yml` template. Note the use of the `VERSION` parameter which must match an image tag created by the application build process.
+
+```
+oc process --local \
+--param=VERSION=0.1 \
+--param-file=openshift/multi-project-templates/parameters.yml \
+--ignore-unknown-parameters \
+-f openshift/multi-project-templates/cakephp-mysql-frontend.yml \
+| oc apply -f -
+```
+
 ### Debugging Unexpected Failures
 
 Review some of the common tips and suggestions [here](https://github.com/openshift/origin/blob/master/docs/debugging-openshift.md).

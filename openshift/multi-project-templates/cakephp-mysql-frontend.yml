@@ -1,0 +1,208 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: cakephp-mysql-frontend
+  annotations:
+    openshift.io/display-name: CakePHP + MySQL
+    description: >-
+      FIXME
+    tags: quickstart,php,cakephp
+    iconClass: icon-php
+    openshift.io/long-description: >-
+      FIXME
+    openshift.io/provider-display-name: Red Hat, Inc.
+    openshift.io/documentation-url: https://github.com/redhat-gpte-devopsautomation/cakephp-ex
+    openshift.io/support-url: https://access.redhat.com
+    template.openshift.io/bindable: 'false'
+message: |-
+  FIXME
+
+  For more information about using this template, including OpenShift considerations, see https://github.com/redhat-gpte-devopsautomation/cakephp-ex/blob/master/README.md.
+labels:
+  template: cakephp-mysql-persistent
+  app: cakephp-mysql-persistent
+parameters:
+- name: NAME
+  displayName: Name
+  description: The name assigned to all of the frontend objects defined in this template.
+  required: true
+  value: cakephp-example
+- name: VERSION
+  displayName: Version
+  description: Image tag for CakePHP application.
+  required: true
+  value: latest
+- name: BUILD_NAMESPACE
+  displayName: Build Namespace
+  description: >-
+    The OpenShift Namespace where the ImageStream and BuildConfig reside.
+  required: true
+  value: cakephp-example-build
+- name: FRONTEND_NAMESPACE
+  displayName: Frontend Namespace
+  description: >-
+    The OpenShift Namespace where the Frontend application deployment, route,
+    and service reside.
+  required: true
+  value: cakephp-example-frontend
+- name: MEMORY_LIMIT
+  displayName: Memory Limit
+  description: Maximum amount of memory the CakePHP container can use.
+  required: true
+  value: 512Mi
+- name: APPLICATION_DOMAIN
+  displayName: Application Hostname
+  description: The exposed hostname that will route to the CakePHP service, if left
+    blank a value will be defaulted.
+  value: ''
+- name: DATABASE_ENGINE
+  displayName: Database Engine
+  description: 'Database engine: postgresql, mysql or sqlite (default).'
+  required: true
+  value: mysql
+- name: OPCACHE_REVALIDATE_FREQ
+  displayName: OPcache Revalidation Frequency
+  description: How often to check script timestamps for updates, in seconds. 0 will
+    result in OPcache checking for updates on every request.
+  value: '2'
+objects:
+- kind: Service
+  apiVersion: v1
+  metadata:
+    name: ${NAME}
+    namespace: ${FRONTEND_NAMESPACE}
+    annotations:
+      description: Exposes and load balances the application pods
+  spec:
+    ports:
+    - name: web
+      port: 8080
+      targetPort: 8080
+    selector:
+      name: ${NAME}
+- kind: Route
+  apiVersion: v1
+  metadata:
+    name: ${NAME}
+    namespace: ${FRONTEND_NAMESPACE}
+  spec:
+    host: ${APPLICATION_DOMAIN}
+    to:
+      kind: Service
+      name: ${NAME}
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    name: ${NAME}
+    namespace: ${FRONTEND_NAMESPACE}
+    annotations:
+      description: Defines how to deploy the application server
+      template.alpha.openshift.io/wait-for-ready: 'true'
+  spec:
+    strategy:
+      type: Recreate
+      recreateParams:
+        pre:
+          failurePolicy: Retry
+          execNewPod:
+            command:
+            - ./migrate-database.sh
+            containerName: cakephp-mysql-persistent
+    triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+        - cakephp-mysql-persistent
+        from:
+          kind: ImageStreamTag
+          name: ${NAME}:${VERSION}
+          namespace: ${BUILD_NAMESPACE}
+    - type: ConfigChange
+    replicas: 1
+    selector:
+      name: ${NAME}
+    template:
+      metadata:
+        name: ${NAME}
+        labels:
+          name: ${NAME}
+      spec:
+        containers:
+        - name: cakephp-mysql-persistent
+          image: " "
+          ports:
+          - containerPort: 8080
+          readinessProbe:
+            timeoutSeconds: 3
+            initialDelaySeconds: 3
+            periodSeconds: 60
+            httpGet:
+              path: /health.php
+              port: 8080
+          livenessProbe:
+            timeoutSeconds: 3
+            initialDelaySeconds: 30
+            periodSeconds: 60
+            httpGet:
+              path: /health.php
+              port: 8080
+          env:
+          - name: MYSQL_SERVICE_HOST
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}
+                key: database-host
+          - name: MYSQL_SERVICE_PORT
+            value: "3306"
+          - name: DATABASE_SERVICE_NAME
+            value: mysql
+          - name: DATABASE_ENGINE
+            value: ${DATABASE_ENGINE}
+          - name: DATABASE_NAME
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}
+                key: database-name
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}
+                key: database-user
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}
+                key: database-password
+          - name: CAKEPHP_SECRET_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}
+                key: cakephp-secret-token
+          - name: CAKEPHP_SECURITY_SALT
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}
+                key: cakephp-security-salt
+          - name: OPCACHE_REVALIDATE_FREQ
+            value: ${OPCACHE_REVALIDATE_FREQ}
+          resources:
+            limits:
+              memory: "${MEMORY_LIMIT}"
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: RoleBinding
+  metadata:
+    annotations:
+      openshift.io/description: >-
+        Allows CakePHP frontend to pull from build namespace.
+    name: system:image-pullers:${FRONTEND_NAMESPACE}
+    namespace: ${BUILD_NAMESPACE}
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:image-puller
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:serviceaccounts:${FRONTEND_NAMESPACE}
