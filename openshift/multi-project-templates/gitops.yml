@@ -152,7 +152,7 @@ parameters:
   - name: NAMESPACE_PREFIX
     value: cakephp
   - name: GITOPS_REPO_URL
-    value: https://github.com/redhat-gpte-devopsautomation/cakephp-ex
+    value: https://github.com/jkupferer/cakephp-ex
   - name: GITOPS_REPO_REF
     value: master
   - name: GITOPS_REPO_DIR

@@ -9,7 +9,7 @@ metadata:
       CakePHP MySQL database configuration for configuration across multiple
       namespaces. For more information about using this template, including
       OpenShift considerations, see
-      https://github.com/redhat-gpte-devopsautomation/cakephp-ex/blob/master/README.md.
+      https://github.com/jkupferer/cakephp-ex/blob/master/README.md.
     tags: quickstart,php,cakephp
     iconClass: icon-php
     openshift.io/long-description: >-
@@ -17,12 +17,12 @@ metadata:
       example application. This template is meant to be used with separate
       deployment and namespace initialization templates.
     openshift.io/provider-display-name: Red Hat, Inc.
-    openshift.io/documentation-url: https://github.com/redhat-gpte-devopsautomation/cakephp-ex
+    openshift.io/documentation-url: https://github.com/jkupferer/cakephp-ex
     template.openshift.io/bindable: 'false'
 message: |-
   MySQL database deployment has been configured in project: ${DATABASE_NAMESPACE}.
 
-  For more information about using this template, including OpenShift considerations, see https://github.com/redhat-gpte-devopsautomation/cakephp-ex/blob/master/README.md.
+  For more information about using this template, including OpenShift considerations, see https://github.com/jkupferer/cakephp-ex/blob/master/README.md.
 labels:
   template: cakephp-multi-project-mysql-persistent
   app: cakephp-example

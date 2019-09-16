@@ -12,13 +12,13 @@ metadata:
     openshift.io/long-description: >-
       FIXME
     openshift.io/provider-display-name: Red Hat, Inc.
-    openshift.io/documentation-url: https://github.com/redhat-gpte-devopsautomation/cakephp-ex
+    openshift.io/documentation-url: https://github.com/jkupferer/cakephp-ex
     openshift.io/support-url: https://access.redhat.com
     template.openshift.io/bindable: 'false'
 message: |-
   FIXME
 
-  For more information about using this template, including OpenShift considerations, see https://github.com/redhat-gpte-devopsautomation/cakephp-ex/blob/master/README.md.
+  For more information about using this template, including OpenShift considerations, see https://github.com/jkupferer/cakephp-ex/blob/master/README.md.
 labels:
   template: cakephp-mysql-persistent
   app: cakephp-mysql-persistent
