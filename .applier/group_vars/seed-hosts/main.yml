@@ -34,6 +34,7 @@ openshift_cluster_content:
     params_from_vars:
       NAME: cakephp
       BUILD_NAMESPACE: cakephp-build
+      SOURCE_REPOSITORY_REF: "{{ build_version }}"
       VERSION: "{{ build_version }}"
   - name: App Deployment (dev)
     template: https://raw.githubusercontent.com/jkupferer/cakephp-ex/{{ dev_version }}/openshift/multi-project-templates/cakephp-mysql-frontend.yml
