@@ -93,6 +93,13 @@ objects:
       description: Defines how to build the application
       template.alpha.openshift.io/wait-for-ready: 'true'
   spec:
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        cpu: "2"
+        memory: 256Mi
     source:
       type: Git
       git:

@@ -28,6 +28,9 @@
 
 <pre>$ git clone &lt;git_url&gt; &lt;directory_to_create&gt;
 
+# Test build from local source before commit
+$ oc start-build cakephp-example --from-dir=.
+
 # Within your project directory
 # Commit your changes and push to OpenShift
 
