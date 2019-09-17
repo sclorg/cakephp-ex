@@ -1,0 +1,15 @@
+---
+- name: Get Build Config
+  k8s_facts:
+    api_version: build.openshift.io/v1
+    kind: BuildConfig
+    name: cakephp
+    namespace: cakephp-build
+  register: r_cakephp_build
+
+- name: Set facts from discovery
+  set_fact:
+    current_build_version: >-
+      {{ r_cakephp_build.resources[0].spec.source.git.ref
+         if r_cakephp_build.resources else ''
+      }}

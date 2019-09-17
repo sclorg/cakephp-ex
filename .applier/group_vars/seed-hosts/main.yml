@@ -1,5 +1,7 @@
 ---
 openshift_cluster_content:
+- galaxy_requirements: "{{ inventory_dir }}/../requirements.yml"
+
 - object: Namespace Initialization
   content:
   - name: Namespace Init (dev)
@@ -28,6 +30,10 @@ openshift_cluster_content:
     template: https://raw.githubusercontent.com/jkupferer/cakephp-ex/master/openshift/multi-project-templates/cakephp-namespace-init.yml
 
 - object: Pipeline Configuration
+  pre_steps:
+  - role: self/gitops/roles/discover
+  post_steps:
+  - role: self/gitops/roles/pipeline
   content:
   - name: Build Configuration
     template: https://raw.githubusercontent.com/jkupferer/cakephp-ex/{{ build_version }}/openshift/multi-project-templates/cakephp-build.yml
