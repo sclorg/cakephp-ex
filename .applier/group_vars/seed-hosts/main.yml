@@ -11,7 +11,7 @@ openshift_cluster_content:
       BUILD_NAMESPACE: cakephp-build
       FRONTEND_NAMESPACE: cakephp-app-dev
       DATABASE_NAMESPACE: cakephp-db-dev
-    template: https://raw.githubusercontent.com/jkupferer/cakephp-ex/master/openshift/multi-project-templates/cakephp-namespace-init.yml
+    template: https://raw.githubusercontent.com/redhat-gpte-devopsautomation/cakephp-ex/master/openshift/multi-project-templates/cakephp-namespace-init.yml
   - name: Namespace Init (test)
     action: create
     params_from_vars:
@@ -19,7 +19,7 @@ openshift_cluster_content:
       BUILD_NAMESPACE: cakephp-build
       FRONTEND_NAMESPACE: cakephp-app-test
       DATABASE_NAMESPACE: cakephp-db-test
-    template: https://raw.githubusercontent.com/jkupferer/cakephp-ex/master/openshift/multi-project-templates/cakephp-namespace-init.yml
+    template: https://raw.githubusercontent.com/redhat-gpte-devopsautomation/cakephp-ex/master/openshift/multi-project-templates/cakephp-namespace-init.yml
   - name: Namespace Init (prod)
     action: create
     params_from_vars:
@@ -27,7 +27,7 @@ openshift_cluster_content:
       BUILD_NAMESPACE: cakephp-build
       FRONTEND_NAMESPACE: cakephp-app-prod
       DATABASE_NAMESPACE: cakephp-db-prod
-    template: https://raw.githubusercontent.com/jkupferer/cakephp-ex/master/openshift/multi-project-templates/cakephp-namespace-init.yml
+    template: https://raw.githubusercontent.com/redhat-gpte-devopsautomation/cakephp-ex/master/openshift/multi-project-templates/cakephp-namespace-init.yml
 
 - object: Pipeline Configuration
   pre_steps:
@@ -36,45 +36,45 @@ openshift_cluster_content:
   - role: self/gitops/roles/pipeline
   content:
   - name: Build Configuration
-    template: https://raw.githubusercontent.com/jkupferer/cakephp-ex/{{ build_version }}/openshift/multi-project-templates/cakephp-build.yml
+    template: https://raw.githubusercontent.com/redhat-gpte-devopsautomation/cakephp-ex/{{ build_version }}/openshift/multi-project-templates/cakephp-build.yml
     params_from_vars:
       NAME: cakephp
       BUILD_NAMESPACE: cakephp-build
       SOURCE_REPOSITORY_REF: "{{ build_version }}"
       VERSION: "{{ build_version }}"
   - name: App Deployment (dev)
-    template: https://raw.githubusercontent.com/jkupferer/cakephp-ex/{{ dev_version }}/openshift/multi-project-templates/cakephp-mysql-frontend.yml
+    template: https://raw.githubusercontent.com/redhat-gpte-devopsautomation/cakephp-ex/{{ dev_version }}/openshift/multi-project-templates/cakephp-mysql-frontend.yml
     params_from_vars:
       NAME: cakephp
       BUILD_NAMESPACE: cakephp-build
       FRONTEND_NAMESPACE: cakephp-app-dev
       VERSION: "{{ dev_version }}"
   - name: DB Deployment (dev)
-    template: https://raw.githubusercontent.com/jkupferer/cakephp-ex/{{ dev_version }}/openshift/multi-project-templates/cakephp-mysql-persistent.yml
+    template: https://raw.githubusercontent.com/redhat-gpte-devopsautomation/cakephp-ex/{{ dev_version }}/openshift/multi-project-templates/cakephp-mysql-persistent.yml
     params_from_vars:
       NAME: cakephp
       DATABASE_NAMESPACE: cakephp-db-dev
   - name: App Deployment (test)
-    template: https://raw.githubusercontent.com/jkupferer/cakephp-ex/{{ test_version }}/openshift/multi-project-templates/cakephp-mysql-frontend.yml
+    template: https://raw.githubusercontent.com/redhat-gpte-devopsautomation/cakephp-ex/{{ test_version }}/openshift/multi-project-templates/cakephp-mysql-frontend.yml
     params_from_vars:
       NAME: cakephp
       BUILD_NAMESPACE: cakephp-build
       FRONTEND_NAMESPACE: cakephp-app-test
       VERSION: "{{ test_version }}"
   - name: DB Deployment (test)
-    template: https://raw.githubusercontent.com/jkupferer/cakephp-ex/{{ test_version }}/openshift/multi-project-templates/cakephp-mysql-persistent.yml
+    template: https://raw.githubusercontent.com/redhat-gpte-devopsautomation/cakephp-ex/{{ test_version }}/openshift/multi-project-templates/cakephp-mysql-persistent.yml
     params_from_vars:
       NAME: cakephp
       DATABASE_NAMESPACE: cakephp-db-test
   - name: App Deployment (prod)
-    template: https://raw.githubusercontent.com/jkupferer/cakephp-ex/{{ prod_version }}/openshift/multi-project-templates/cakephp-mysql-frontend.yml
+    template: https://raw.githubusercontent.com/redhat-gpte-devopsautomation/cakephp-ex/{{ prod_version }}/openshift/multi-project-templates/cakephp-mysql-frontend.yml
     params_from_vars:
       NAME: cakephp
       BUILD_NAMESPACE: cakephp-build
       FRONTEND_NAMESPACE: cakephp-app-prod
       VERSION: "{{ prod_version }}"
   - name: DB Deployment (prod)
-    template: https://raw.githubusercontent.com/jkupferer/cakephp-ex/{{ prod_version }}/openshift/multi-project-templates/cakephp-mysql-persistent.yml
+    template: https://raw.githubusercontent.com/redhat-gpte-devopsautomation/cakephp-ex/{{ prod_version }}/openshift/multi-project-templates/cakephp-mysql-persistent.yml
     params_from_vars:
       NAME: cakephp
       DATABASE_NAMESPACE: cakephp-db-prod

@@ -2,6 +2,6 @@
 - src: https://github.com/redhat-cop/openshift-applier
   version: master
 
-- src: https://github.com/jkupferer/cakephp-ex
+- src: https://github.com/redhat-gpte-devopsautomation/cakephp-ex
   name: self
   version: master
