@@ -109,6 +109,13 @@ objects:
             command:
             - ./migrate-database.sh
             containerName: cakephp-mysql-persistent
+      resources:
+        requests:
+          cpu: 50m
+          memory: 100Mi
+        limits:
+          cpu: 500m
+          memory: 100Mi
     triggers:
     - type: ImageChange
       imageChangeParams:
@@ -188,7 +195,11 @@ objects:
           - name: OPCACHE_REVALIDATE_FREQ
             value: ${OPCACHE_REVALIDATE_FREQ}
           resources:
+            requests:
+              cpu: 100m
+              memory: "${MEMORY_LIMIT}"
             limits:
+              cpu: "1"
               memory: "${MEMORY_LIMIT}"
 - apiVersion: rbac.authorization.k8s.io/v1
   kind: RoleBinding

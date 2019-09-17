@@ -1,10 +1,13 @@
 ---
 openshift_cluster_content:
+- galaxy_requirements: "{{ inventory_dir }}/../requirements.yml"
+
 - object: Namespace Initialization
   content:
   - name: Namespace Init (dev)
     action: create
     params_from_vars:
+      NAME: cakephp
       BUILD_NAMESPACE: cakephp-build
       FRONTEND_NAMESPACE: cakephp-app-dev
       DATABASE_NAMESPACE: cakephp-db-dev
@@ -12,6 +15,7 @@ openshift_cluster_content:
   - name: Namespace Init (test)
     action: create
     params_from_vars:
+      NAME: cakephp
       BUILD_NAMESPACE: cakephp-build
       FRONTEND_NAMESPACE: cakephp-app-test
       DATABASE_NAMESPACE: cakephp-db-test
@@ -19,18 +23,24 @@ openshift_cluster_content:
   - name: Namespace Init (prod)
     action: create
     params_from_vars:
+      NAME: cakephp
       BUILD_NAMESPACE: cakephp-build
       FRONTEND_NAMESPACE: cakephp-app-prod
       DATABASE_NAMESPACE: cakephp-db-prod
     template: https://raw.githubusercontent.com/redhat-gpte-devopsautomation/cakephp-ex/master/openshift/multi-project-templates/cakephp-namespace-init.yml
 
 - object: Pipeline Configuration
+  pre_steps:
+  - role: self/gitops/roles/discover
+  post_steps:
+  - role: self/gitops/roles/pipeline
   content:
   - name: Build Configuration
     template: https://raw.githubusercontent.com/redhat-gpte-devopsautomation/cakephp-ex/{{ build_version }}/openshift/multi-project-templates/cakephp-build.yml
     params_from_vars:
       NAME: cakephp
       BUILD_NAMESPACE: cakephp-build
+      SOURCE_REPOSITORY_REF: "{{ build_version }}"
       VERSION: "{{ build_version }}"
   - name: App Deployment (dev)
     template: https://raw.githubusercontent.com/redhat-gpte-devopsautomation/cakephp-ex/{{ dev_version }}/openshift/multi-project-templates/cakephp-mysql-frontend.yml

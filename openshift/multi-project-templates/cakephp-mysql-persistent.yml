@@ -68,6 +68,13 @@ objects:
   spec:
     strategy:
       type: Recreate
+      resources:
+        requests:
+          cpu: 50m
+          memory: 100Mi
+        limits:
+          cpu: 500m
+          memory: 100Mi
     triggers:
     - type: ImageChange
       imageChangeParams:
@@ -137,5 +144,9 @@ objects:
                 name: ${DATABASE_SERVICE_NAME}
                 key: database-name
           resources:
+            requests:
+              cpu: 100m
+              memory: ${MEMORY_MYSQL_LIMIT}
             limits:
+              cpu: "1"
               memory: ${MEMORY_MYSQL_LIMIT}
