@@ -2,48 +2,11 @@
 apiVersion: v1
 kind: Template
 objects:
-- apiVersion: v1
-  kind: Namespace
-  metadata:
-    name: ${NAMESPACE_PREFIX}-gitops
-- apiVersion: v1
-  kind: Namespace
-  metadata:
-    name: ${NAMESPACE_PREFIX}-build
-- apiVersion: v1
-  kind: Namespace
-  metadata:
-    name: ${NAMESPACE_PREFIX}-app-dev
-- apiVersion: v1
-  kind: Namespace
-  metadata:
-    name: ${NAMESPACE_PREFIX}-db-dev
-- apiVersion: v1
-  kind: Namespace
-  metadata:
-    name: ${NAMESPACE_PREFIX}-app-test
-- apiVersion: v1
-  kind: Namespace
-  metadata:
-    name: ${NAMESPACE_PREFIX}-db-test
-- apiVersion: v1
-  kind: Namespace
-  metadata:
-    name: ${NAMESPACE_PREFIX}-app-prod
-- apiVersion: v1
-  kind: Namespace
-  metadata:
-    name: ${NAMESPACE_PREFIX}-db-prod
-- apiVersion: v1
-  kind: ServiceAccount
-  metadata:
-    name: gitops-runner
-    namespace: ${NAMESPACE_PREFIX}-gitops
 - apiVersion: eunomia.kohls.io/v1alpha1
   kind: GitOpsConfig
   metadata:
     name: cakephp
-    namespace: ${NAMESPACE_PREFIX}-gitops
+    namespace: ${GITOPS_NAMESPACE}
   spec:
     templateSource:
       uri: ${GITOPS_REPO_URL}
@@ -57,108 +20,17 @@ objects:
     templateProcessorImage: ${TEMPLATE_PROCESSOR_IMAGE}
     resourceHandlingMode: None
     resourceDeletionMode: None
-- apiVersion: rbac.authorization.k8s.io/v1
-  kind: RoleBinding
-  metadata:
-    name: gitops-runner-binding
-    namespace: ${NAMESPACE_PREFIX}-build
-  roleRef:
-    apiGroup: rbac.authorization.k8s.io
-    kind: ClusterRole
-    name: admin
-  subjects:
-  - kind: ServiceAccount
-    name: gitops-runner
-    namespace: ${NAMESPACE_PREFIX}-gitops
-- apiVersion: rbac.authorization.k8s.io/v1
-  kind: RoleBinding
-  metadata:
-    name: gitops-runner-binding
-    namespace: ${NAMESPACE_PREFIX}-app-dev
-  roleRef:
-    apiGroup: rbac.authorization.k8s.io
-    kind: ClusterRole
-    name: admin
-  subjects:
-  - kind: ServiceAccount
-    name: gitops-runner
-    namespace: ${NAMESPACE_PREFIX}-gitops
-- apiVersion: rbac.authorization.k8s.io/v1
-  kind: RoleBinding
-  metadata:
-    name: gitops-runner-binding
-    namespace: ${NAMESPACE_PREFIX}-db-dev
-  roleRef:
-    apiGroup: rbac.authorization.k8s.io
-    kind: ClusterRole
-    name: admin
-  subjects:
-  - kind: ServiceAccount
-    name: gitops-runner
-    namespace: ${NAMESPACE_PREFIX}-gitops
-- apiVersion: rbac.authorization.k8s.io/v1
-  kind: RoleBinding
-  metadata:
-    name: gitops-runner-binding
-    namespace: ${NAMESPACE_PREFIX}-app-test
-  roleRef:
-    apiGroup: rbac.authorization.k8s.io
-    kind: ClusterRole
-    name: admin
-  subjects:
-  - kind: ServiceAccount
-    name: gitops-runner
-    namespace: ${NAMESPACE_PREFIX}-gitops
-- apiVersion: rbac.authorization.k8s.io/v1
-  kind: RoleBinding
-  metadata:
-    name: gitops-runner-binding
-    namespace: ${NAMESPACE_PREFIX}-db-test
-  roleRef:
-    apiGroup: rbac.authorization.k8s.io
-    kind: ClusterRole
-    name: admin
-  subjects:
-  - kind: ServiceAccount
-    name: gitops-runner
-    namespace: ${NAMESPACE_PREFIX}-gitops
-- apiVersion: rbac.authorization.k8s.io/v1
-  kind: RoleBinding
-  metadata:
-    name: gitops-runner-binding
-    namespace: ${NAMESPACE_PREFIX}-app-prod
-  roleRef:
-    apiGroup: rbac.authorization.k8s.io
-    kind: ClusterRole
-    name: admin
-  subjects:
-  - kind: ServiceAccount
-    name: gitops-runner
-    namespace: ${NAMESPACE_PREFIX}-gitops
-- apiVersion: rbac.authorization.k8s.io/v1
-  kind: RoleBinding
-  metadata:
-    name: gitops-runner-binding
-    namespace: ${NAMESPACE_PREFIX}-db-prod
-  roleRef:
-    apiGroup: rbac.authorization.k8s.io
-    kind: ClusterRole
-    name: admin
-  subjects:
-  - kind: ServiceAccount
-    name: gitops-runner
-    namespace: ${NAMESPACE_PREFIX}-gitops
 parameters:
-  - name: NAMESPACE_PREFIX
-    value: cakephp
-  - name: GITOPS_REPO_URL
-    value: https://github.com/redhat-gpte-devopsautomation/cakephp-ex
-  - name: GITOPS_REPO_REF
-    value: master
-  - name: GITOPS_REPO_DIR
-    value: ''
-  - name: TEMPLATE_PROCESSOR_IMAGE
-    value: quay.io/kohlstechnology/eunomia-applier:v0.0.1
-  - name: SCHEDULE
-    description: Periodic scheludle for gitops processing
-    value: "@daily"
+- name: GITOPS_NAMESPACE
+  value: cakephp-gitops
+- name: GITOPS_REPO_URL
+  value: https://github.com/redhat-gpte-devopsautomation/cakephp-ex
+- name: GITOPS_REPO_REF
+  value: master
+- name: GITOPS_REPO_DIR
+  value: ''
+- name: TEMPLATE_PROCESSOR_IMAGE
+  value: quay.io/kohlstechnology/eunomia-applier:v0.0.1
+- name: SCHEDULE
+  description: Periodic scheludle for gitops processing
+  value: "@daily"
