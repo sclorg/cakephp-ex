@@ -1,0 +1,39 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: user-rolebinding
+  annotations:
+    openshift.io/display-name: Role Binding
+    description: >-
+      Create a role binding in target namespace.
+    openshift.io/long-description: >-
+      This template defines a RoleBinding in a target namespace.
+    template.openshift.io/bindable: 'false'
+message: |-
+  ${CLUSTER_ROLE} RoleBinding created for ${USER} in ${NAMESPACE}.
+parameters:
+- name: NAMESPACE
+  displayName: Namespace
+  required: true
+- name: USER
+  displayName: User
+  required: true
+- name: CLUSTER_ROLE
+  displayName: ClusterRole
+  required: true
+  value: admin
+objects:
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: RoleBinding
+  metadata:
+    name: ${CLUSTER_ROLE}-${USER}
+    namespace: ${NAMESPACE}
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: ${CLUSTER_ROLE}
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: ${USER}
