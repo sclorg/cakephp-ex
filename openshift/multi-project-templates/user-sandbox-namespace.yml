@@ -12,7 +12,7 @@ metadata:
     template.openshift.io/bindable: 'false'
 
 message: |-
-  ${CLUSTER_ROLE} RoleBinding created for ${USER} in ${NAMESPACE}.
+  Namespace ${NAMESPACE} created for ${USER}.
 
 parameters:
 - name: NAMESPACE
