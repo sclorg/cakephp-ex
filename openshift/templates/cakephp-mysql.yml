@@ -41,7 +41,7 @@ parameters:
   displayName: PHP Version
   description: Version of PHP image to be used (7.1 or latest).
   required: true
-  value: '7.1'
+  value: '7.3'
 - name: MEMORY_LIMIT
   displayName: Memory Limit
   description: Maximum amount of memory the CakePHP container can use.
