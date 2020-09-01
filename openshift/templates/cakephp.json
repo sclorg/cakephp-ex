@@ -263,9 +263,9 @@
     {
       "name": "PHP_VERSION",
       "displayName": "PHP Version",
-      "description": "Version of PHP image to be used (7.3 or latest).",
+      "description": "Version of PHP image to be used (7.3-ubi7, 7.3-ubi8, or latest).",
       "required": true,
-      "value": "7.3"
+      "value": "7.3-ubi8"
     },
     {
       "name": "MEMORY_LIMIT",
