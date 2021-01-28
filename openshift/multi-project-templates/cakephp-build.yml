@@ -52,7 +52,7 @@ parameters:
   displayName: PHP Version
   description: Version of PHP image to be used (7.1 or latest).
   required: true
-  value: '7.1'
+  value: '7.3'
 - name: SOURCE_REPOSITORY_URL
   displayName: Git Repository URL
   description: The URL of the repository with your application source code.
