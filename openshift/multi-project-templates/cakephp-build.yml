@@ -57,7 +57,7 @@ parameters:
   displayName: Git Repository URL
   description: The URL of the repository with your application source code.
   required: true
-  value: https://github.com/redhat-gpte-devopsautomation/cakephp-ex.git
+  value: https://github.com/sclorg/cakephp-ex.git
 - name: SOURCE_REPOSITORY_REF
   displayName: Git Reference
   description: Set this to a branch name, tag or other ref of your repository if you
