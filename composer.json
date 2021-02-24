@@ -6,7 +6,7 @@
 	"license": "MIT",
 	"require": {
 		"php": ">=5.6",
-		"cakephp/cakephp": "3.6.*",
+		"cakephp/cakephp": "3.9.*",
 		"cakephp/migrations": "@stable",
 		"cakephp/plugin-installer": "^1.0",
 		"josegonzalez/dotenv": "3.*",
@@ -15,7 +15,7 @@
 	"require-dev": {
 		"cakephp/bake": "^1.1",
 		"cakephp/cakephp-codesniffer": "^3.0",
-		"cakephp/debug_kit": "^3.15.0",
+		"cakephp/debug_kit": "^3.22",
 		"phpunit/phpunit": "^5.7|^6.0",
 		"psy/psysh": "@stable"
 	},
@@ -37,7 +37,6 @@
 	"scripts": {
 		"post-install-cmd": "App\\Console\\Installer::postInstall",
 		"post-create-project-cmd": "App\\Console\\Installer::postInstall",
-		"post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump",
 		"check": [
 			"@test",
 			"@cs-check"
@@ -50,7 +49,7 @@
 	"config": {
 		"sort-packages": true,
 		"platform": {
-			"php": "7.0.10"
+			"php": "7.2"
 		}
 	}
 }

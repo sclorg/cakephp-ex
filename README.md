@@ -20,11 +20,9 @@
 CakePHP Sample App on OpenShift
 ===============================
 
-This repository is based on the [sclorg/cakephp-ex](https://github.com/sclorg/cakephp-ex) repository with the addition of refined templates for deploying across multiple namespaces.
-
 This is a quickstart CakePHP application for OpenShift v3 that you can use as a starting point to develop your own application and deploy it on an [OpenShift](https://github.com/openshift/origin) cluster.
 
-If you'd like to install it, follow [these directions](https://github.com/redhat-gpte-devopsautomation/cakephp-ex/blob/master/README.md#installation).  
+If you'd like to install it, follow [these directions](https://github.com/sclorg/cakephp-ex/blob/master/README.md#installation).  
 
 The steps in this document assume that you have access to an OpenShift deployment that you can deploy applications on.
 
@@ -38,11 +36,11 @@ Since the quickstarts are shared code, we had to take special consideration to e
 ### Installation:
 These steps assume your OpenShift deployment has the default set of ImageStreams defined.  Instructions for installing the default ImageStreams are available [here](https://docs.okd.io/latest/install_config/imagestreams_templates.html#creating-image-streams-for-openshift-images).  If you are defining the set of ImageStreams now, remember to pass in the proper cluster-admin credentials and to create the ImageStreams in the 'openshift' namespace.
 
-1. Fork a copy of [cakephp-ex](https://github.com/redhat-gpte-devopsautomation/cakephp-ex)
+1. Fork a copy of [cakephp-ex](https://github.com/sclorg/cakephp-ex)
 2. Clone your repository to your development machine and cd to the repository directory
 3. Add a PHP application from the provided template and specify the source url to be your forked repo  
 
-		$ oc new-app openshift/templates/cakephp.yml -p SOURCE_REPOSITORY_URL=<your repository location>
+		$ oc new-app openshift/templates/cakephp.json -p SOURCE_REPOSITORY_URL=<your repository location>
 
 4. Depending on the state of your system, and whether additional items need to be downloaded, it may take around a minute for your build to be started automatically.  If you do not want to wait, run
 
@@ -76,102 +74,6 @@ These steps assume your OpenShift deployment has the default set of ImageStreams
 In this case, the IP for cakephp-example is 172.30.97.123 and it is on port 8080.  
 *Note*: you can also get this information from the web console.
 
-### Multi-Project Installation
-The basic templates provide a single-project configuration of the CakePHP example. 
-
-#### Template Parameters
-
-The provided OpenShift multi-project templates use parameters to configure the following namespaces:
-
-* `BUILD_NAMESPACE` - The OpenShift Namespace where the ImageStream and BuildConfig reside.
-
-* `DATABASE_NAMESPACE` - The OpenShift Namespace where the Database deployment and service reside.
-
-* `FRONTEND_NAMESPACE` - The OpenShift Namespace where the Frontend application deployment, route, and service reside.
-
-Template parameters for all templates may be configured in a common parameter file, for example:
-
-```
-NAME: "cakephp"
-VERSION: "0.1"
-BUILD_NAMESPACE: "cakephp-example-build"
-DATABASE_NAMESPACE: "cakephp-example-database"
-FRONTEND_NAMESPACE: "cakephp-example-frontend"
-VOLUME_CAPACITY: "10Gi"
-```
-
-An example parameters file is provided at `openshift/multi-project-templates/parameters.yml`.
-
-#### Project Creation
-
-The first step in a multi-project installation is to create the projects. This step may be accomplished by use of the provided template with cluster-admin access rights.
-
-```
-oc process --local \
---param-file=openshift/multi-project-templates/parameters.yml \
---ignore-unknown-parameters \
--f openshift/multi-project-templates/cakephp-namespaces.yml \
-| oc apply -f -
-```
-
-These project namespaces can also be created with `oc new-project`:
-
-```
-oc new-project ${BUILD_NAMESPACE}
-oc new-project ${DATABASE_NAMESPACE}
-oc new-project ${FRONTEND_NAMESPACE}
-```
-
-#### Project Initialization
-
-Within the CakePHP projects resources such as secrets and persistent volume claims should be created initially and not subsequently recreated or updated. Secrets are created in the frontend and database namespaces for the generated database credentials.
-
-```
-oc process --local \
---param-file=openshift/multi-project-templates/parameters.yml \
---ignore-unknown-parameters \
--f openshift/multi-project-templates/cakephp-namespace-init.yml \
-| oc create -f -
-```
-
-#### MySQL Database Deployment
-
-The MySQL persistent database is deployed as follows:
-
-```
-oc process --local \
---param-file=openshift/multi-project-templates/parameters.yml \
---ignore-unknown-parameters \
--f openshift/multi-project-templates/cakephp-mysql-persistent.yml \
-| oc apply -f -
-```
-
-#### Building the Frontend Application
-
-To build the application, configure the application build config with the provided build template. Note the use of the `VERSION` parameter. This will update the build config to set the output image tag and will automatically trigger a build through the ConfigChange trigger.
-
-```
-oc process --local \
---param=VERSION=0.1 \
---param-file=openshift/multi-project-templates/parameters.yml \
---ignore-unknown-parameters \
--f openshift/multi-project-templates/cakephp-build.yml \
-| oc apply -f -
-```
-
-#### Deploying the Frontend Application
-
-To configure and deploy a new version of the frontend application for a MySQL database backend, use the provided `cakephp-mysql-frontend.yml` template. Note the use of the `VERSION` parameter which must match an image tag created by the application build process.
-
-```
-oc process --local \
---param=VERSION=0.1 \
---param-file=openshift/multi-project-templates/parameters.yml \
---ignore-unknown-parameters \
--f openshift/multi-project-templates/cakephp-mysql-frontend.yml \
-| oc apply -f -
-```
-
 ### Debugging Unexpected Failures
 
 Review some of the common tips and suggestions [here](https://github.com/openshift/origin/blob/master/docs/debugging-openshift.md).
@@ -181,7 +83,7 @@ Review some of the common tips and suggestions [here](https://github.com/openshi
   - Note: The output in steps 5-6 may also display information about your database.
 2. Add a PHP application from the cakephp-mysql template and specify the source url to be your forked repo  
 
-		$ oc new-app openshift/templates/cakephp-mysql.yml -p SOURCE_REPOSITORY_URL=<your repository location>
+		$ oc new-app openshift/templates/cakephp-mysql.json -p SOURCE_REPOSITORY_URL=<your repository location>
 
 
 ### Adding Webhooks and Making Code Changes
@@ -200,15 +102,15 @@ Since OpenShift V3 does not provide a git repository out of the box, you can con
 ### Enabling the Database example
 In order to access the example CakePHP home page, which contains application stats including database connectivity, you have to go into the app/View/Layouts/ directory, remove the default.ctp and after that rename default.ctp.default into default.ctp`.
 
-It will also be necessary to update your application to talk to your database back-end. The app/Config/database.php file used by CakePHP was set up in such a way that it will accept environment variables for your connection information that you pass to it. Once an administrator has created a MySQL database service for you to connect with you can add the following environment variables to your deploymentConfig to ensure all your cakephp-example pods have access to these environment variables. Note: the cakephp-mysql.yml template creates the DB service and environment variables for you.
+It will also be necessary to update your application to talk to your database back-end. The app/Config/database.php file used by CakePHP was set up in such a way that it will accept environment variables for your connection information that you pass to it. Once an administrator has created a MySQL database service for you to connect with you can add the following environment variables to your deploymentConfig to ensure all your cakephp-example pods have access to these environment variables. Note: the cakephp-mysql.json template creates the DB service and environment variables for you.
 
 You will then need to rebuild the application.  This is done via either a `oc start-build` command, or through the web console, or a webhook trigger in github initiating a build after the code changes are pushed.
 
 ### Hot Deploy
 
-In order to immediately pick up changes made in your application source code, you need to run your built image with the `OPCACHE_REVALIDATE_FREQ=0` parameter to the [oc new-app](https://docs.okd.io/latest/cli_reference/basic_cli_operations.html#basic-cli-operations) command, while performing the [installation steps](https://github.com/redhat-gpte-devopsautomation/cakephp-ex#installation) described in this README.
+In order to immediately pick up changes made in your application source code, you need to run your built image with the `OPCACHE_REVALIDATE_FREQ=0` parameter to the [oc new-app](https://docs.okd.io/latest/cli_reference/basic_cli_operations.html#basic-cli-operations) command, while performing the [installation steps](https://github.com/sclorg/cakephp-ex#installation) described in this README.
 
-	$ oc new-app openshift/templates/cakephp-mysql.yml -p OPCACHE_REVALIDATE_FREQ=0
+	$ oc new-app openshift/templates/cakephp-mysql.json -p OPCACHE_REVALIDATE_FREQ=0
 
 Hot deploy works out of the box in the php image used with this example.
 
