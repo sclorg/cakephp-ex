@@ -305,7 +305,7 @@ parameters:
     displayName: MySQL Version
     description: Version of MySQL image to be used (8.0-el8 or latest).
     required: true
-    value: 8.0-el8
+    value: 8.0.23-1.el8
   - name: MEMORY_LIMIT
     displayName: Memory Limit
     description: Maximum amount of memory the CakePHP container can use.
