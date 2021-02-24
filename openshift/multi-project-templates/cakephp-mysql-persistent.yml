@@ -84,7 +84,7 @@ objects:
         from:
           kind: ImageStreamTag
           namespace: ${IMAGE_NAMESPACE}
-          name: mysql:5.7
+          name: mysql:8.0-el8
     - type: ConfigChange
     replicas: 1
     selector:
