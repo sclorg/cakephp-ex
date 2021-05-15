@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -15,7 +17,6 @@
 namespace App\Test\TestCase;
 
 use App\Application;
-use Cake\Core\Configure;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Middleware\AssetMiddleware;
@@ -28,7 +29,6 @@ use InvalidArgumentException;
  */
 class ApplicationTest extends IntegrationTestCase
 {
-
     /**
      * testBootstrap
      *
@@ -40,12 +40,10 @@ class ApplicationTest extends IntegrationTestCase
         $app->bootstrap();
         $plugins = $app->getPlugins();
 
-        $this->assertCount(Configure::read('debug') ? 3 : 2, $plugins);
+        $this->assertCount(3, $plugins);
         $this->assertSame('Bake', $plugins->get('Bake')->getName());
+        $this->assertSame('DebugKit', $plugins->get('DebugKit')->getName());
         $this->assertSame('Migrations', $plugins->get('Migrations')->getName());
-		if (Configure::read('debug')) {
-			$this->assertSame('DebugKit', $plugins->get('DebugKit')->getName());
-		}
     }
 
     /**
@@ -59,7 +57,7 @@ class ApplicationTest extends IntegrationTestCase
 
         $app = $this->getMockBuilder(Application::class)
             ->setConstructorArgs([dirname(dirname(__DIR__)) . '/config'])
-            ->setMethods(['addPlugin'])
+            ->onlyMethods(['addPlugin'])
             ->getMock();
 
         $app->method('addPlugin')
@@ -80,8 +78,10 @@ class ApplicationTest extends IntegrationTestCase
 
         $middleware = $app->middleware($middleware);
 
-        $this->assertInstanceOf(ErrorHandlerMiddleware::class, $middleware->get(0));
-        $this->assertInstanceOf(AssetMiddleware::class, $middleware->get(1));
-        $this->assertInstanceOf(RoutingMiddleware::class, $middleware->get(2));
+        $this->assertInstanceOf(ErrorHandlerMiddleware::class, $middleware->current());
+        $middleware->seek(1);
+        $this->assertInstanceOf(AssetMiddleware::class, $middleware->current());
+        $middleware->seek(2);
+        $this->assertInstanceOf(RoutingMiddleware::class, $middleware->current());
     }
 }
