@@ -143,7 +143,7 @@
     },
     {
       "kind": "DeploymentConfig",
-      "apiVersion": "apps.openshift.io/v1v1",
+      "apiVersion": "apps.openshift.io/v1",
       "metadata": {
         "name": "${NAME}",
         "annotations": {
