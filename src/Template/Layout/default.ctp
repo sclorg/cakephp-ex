@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -223,4 +223,18 @@ pre {
 
 </body>
 </html>
+ -->
 
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello World</title>
+</head>
+<body>
+	<?php
+		echo "Hello, world!";
+	?>
+</body>
+</html>
