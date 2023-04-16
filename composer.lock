@@ -4,24 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa096d8dff16446dc0d5335918047557",
+    "content-hash": "b2b86fab70ada7f453da2d307ad3d482",
     "packages": [
         {
             "name": "aura/intl",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/auraphp/Aura.Intl.git",
-                "reference": "7fce228980b19bf4dee2d7bbd6202a69b0dde926"
+                "reference": "642cab45c9c88a217f89b65c2d7219a8cd7f803b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Intl/zipball/7fce228980b19bf4dee2d7bbd6202a69b0dde926",
-                "reference": "7fce228980b19bf4dee2d7bbd6202a69b0dde926",
+                "url": "https://api.github.com/repos/auraphp/Aura.Intl/zipball/642cab45c9c88a217f89b65c2d7219a8cd7f803b",
+                "reference": "642cab45c9c88a217f89b65c2d7219a8cd7f803b",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6|^7.0"
+                "php": "^5.6 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "yoast/phpunit-polyfills": "~1.0"
             },
             "type": "library",
             "autoload": {
@@ -50,20 +53,20 @@
                 "l10n",
                 "localization"
             ],
-            "time": "2017-01-20T05:00:11+00:00"
+            "time": "2022-01-28T10:55:50+00:00"
         },
         {
             "name": "cakephp/cakephp",
-            "version": "3.9.3",
+            "version": "3.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "74f60e2e1f15c8fd27653db2ee835d426b59ee83"
+                "reference": "a848520c9f93f177b4385359ebb59e7323899ed5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/74f60e2e1f15c8fd27653db2ee835d426b59ee83",
-                "reference": "74f60e2e1f15c8fd27653db2ee835d426b59ee83",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/a848520c9f93f177b4385359ebb59e7323899ed5",
+                "reference": "a848520c9f93f177b4385359ebb59e7323899ed5",
                 "shasum": ""
             },
             "require": {
@@ -73,7 +76,7 @@
                 "ext-mbstring": "*",
                 "laminas/laminas-diactoros": "^1.4.0",
                 "paragonie/random_compat": "^1.4|^2.0|9.99.99",
-                "php": ">=5.6.0",
+                "php": ">=5.6.0,<8.0.0",
                 "psr/log": "^1.0.0",
                 "psr/simple-cache": "^1.0.0"
             },
@@ -109,15 +112,15 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "Cake\\": "src/"
-                },
                 "files": [
                     "src/Core/functions.php",
                     "src/Collection/functions.php",
                     "src/I18n/functions.php",
                     "src/Utility/bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Cake\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -142,7 +145,7 @@
                 "rapid-development",
                 "validation"
             ],
-            "time": "2020-10-06T01:21:56+00:00"
+            "time": "2022-05-08T15:00:39+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -169,12 +172,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "Cake\\Chronos\\": "src/"
-                },
                 "files": [
                     "src/carbon_compat.php"
-                ]
+                ],
+                "psr-4": {
+                    "Cake\\Chronos\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -560,12 +563,12 @@
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "Mobile_Detect.php"
-                ],
                 "psr-0": {
                     "Detection": "namespaced/"
-                }
+                },
+                "classmap": [
+                    "Mobile_Detect.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -686,25 +689,25 @@
         },
         {
             "name": "psr/http-message",
-            "version": "1.0.1",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": "^7.2 || ^8.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -732,20 +735,20 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06T14:39:51+00:00"
+            "time": "2023-04-04T09:50:52+00:00"
         },
         {
             "name": "psr/log",
-            "version": "1.1.3",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc"
+                "reference": "d49695b909c3b7628b6289db5479a1c204601f11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/0f73288fd15629204f9d42b7055f72dacbe811fc",
-                "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/d49695b909c3b7628b6289db5479a1c204601f11",
+                "reference": "d49695b909c3b7628b6289db5479a1c204601f11",
                 "shasum": ""
             },
             "require": {
@@ -769,7 +772,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interface for logging libraries",
@@ -779,7 +782,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2020-03-23T09:12:05+00:00"
+            "time": "2021-05-03T11:20:27+00:00"
         },
         {
             "name": "psr/simple-cache",
@@ -1173,12 +1176,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Ctype\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1249,12 +1252,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Mbstring\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1323,12 +1326,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Php73\\": ""
-                },
                 "files": [
                     "bootstrap.php"
                 ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php73\\": ""
+                },
                 "classmap": [
                     "Resources/stubs"
                 ]
@@ -1399,12 +1402,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Php80\\": ""
-                },
                 "files": [
                     "bootstrap.php"
                 ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php80\\": ""
+                },
                 "classmap": [
                     "Resources/stubs"
                 ]
@@ -2606,12 +2609,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "DeepCopy\\": "src/DeepCopy/"
-                },
                 "files": [
                     "src/DeepCopy/deep_copy.php"
-                ]
+                ],
+                "psr-4": {
+                    "DeepCopy\\": "src/DeepCopy/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -4266,12 +4269,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Php72\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php72\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -4631,12 +4634,12 @@
             "version": "1.9.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "shasum": ""
             },
