@@ -1,6 +1,4 @@
 <?php
-declare(strict_types=1);
-
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -17,6 +15,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Event\Event;
 
 /**
  * Application Controller
@@ -24,20 +23,21 @@ use Cake\Controller\Controller;
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
  *
- * @link https://book.cakephp.org/4/en/controllers.html#the-app-controller
+ * @link https://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller
 {
+
     /**
      * Initialization hook method.
      *
      * Use this method to add common initialization code like loading components.
      *
-     * e.g. `$this->loadComponent('FormProtection');`
+     * e.g. `$this->loadComponent('Security');`
      *
      * @return void
      */
-    public function initialize(): void
+    public function initialize()
     {
         parent::initialize();
 
@@ -45,9 +45,10 @@ class AppController extends Controller
         $this->loadComponent('Flash');
 
         /*
-         * Enable the following component for recommended CakePHP form protection settings.
-         * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
+         * Enable the following components for recommended CakePHP security settings.
+         * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
-        //$this->loadComponent('FormProtection');
+        //$this->loadComponent('Security');
+        //$this->loadComponent('Csrf');
     }
 }

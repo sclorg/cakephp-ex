@@ -1,5 +1,6 @@
 # CakePHP specific files #
 ##########################
+/config/app.php
 /config/.env
 /logs/*
 /tmp/*
@@ -15,12 +16,9 @@
 Icon?
 ehthumbs.db
 Thumbs.db
-.directory
 
 # Tool specific files #
 #######################
-# PHPUnit
-.phpunit.result.cache
 # vim
 *~
 *.swp
