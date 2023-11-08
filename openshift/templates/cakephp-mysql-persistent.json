@@ -67,6 +67,9 @@
         "to": {
           "kind": "Service",
           "name": "${NAME}"
+        },
+        "tls": {
+          "termination": "edge"
         }
       }
     },
