@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-set -m
-exec vendor/bin/phpunit
-exit
