@@ -1,6 +1,5 @@
 # CakePHP specific files #
 ##########################
-/config/app_local.php
 /config/.env
 /logs/*
 /tmp/*
@@ -14,7 +13,8 @@
 .Spotlight-V100
 .Trashes
 # Icon must end with two \r
-Icon
+Icon
+
 ehthumbs.db
 Thumbs.db
 .directory
