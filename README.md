@@ -1,5 +1,3 @@
-
-
 <!-- toc -->
 
 - [CakePHP Sample App on OpenShift](#cakephp-sample-app-on-openshift)
@@ -22,7 +20,7 @@ CakePHP Sample App on OpenShift
 
 This is a quickstart CakePHP application for OpenShift v3 that you can use as a starting point to develop your own application and deploy it on an [OpenShift](https://github.com/openshift/origin) cluster.
 
-If you'd like to install it, follow [these directions](https://github.com/sclorg/cakephp-ex/blob/master/README.md#installation).  
+If you'd like to install it, follow [these directions](https://github.com/sclorg/cakephp-ex/blob/master/README.md#installation).
 
 The steps in this document assume that you have access to an OpenShift deployment that you can deploy applications on.
 
@@ -30,15 +28,12 @@ OpenShift Considerations
 ------------------------
 These are some special considerations you may need to keep in mind when running your application on OpenShift.
 
-### Security
-Since the quickstarts are shared code, we had to take special consideration to ensure that security related configuration variable values are unique across applications. To accomplish this, we modified some of the configuration files. Namely we changed Security.salt and Security.cipherSeed values in the app/Config/core.php config file. Those values are now generated from the application template as CAKEPHP_SECURITY_SALT and CAKEPHP_SECURITY_CIPHER_SEED. Also the secret token is generated in the template as CAKEPHP_SECRET_TOKEN. From these values the session hashes are generated. Now instead of using the same default values, OpenShift can generate these values using the generate from logic defined within the instant application's template.
-
 ### Installation:
 These steps assume your OpenShift deployment has the default set of ImageStreams defined.  Instructions for installing the default ImageStreams are available [here](https://docs.okd.io/latest/install_config/imagestreams_templates.html#creating-image-streams-for-openshift-images).  If you are defining the set of ImageStreams now, remember to pass in the proper cluster-admin credentials and to create the ImageStreams in the 'openshift' namespace.
 
 1. Fork a copy of [cakephp-ex](https://github.com/sclorg/cakephp-ex)
 2. Clone your repository to your development machine and cd to the repository directory
-3. Add a PHP application from the provided template and specify the source url to be your forked repo  
+3. Add a PHP application from the provided template and specify the source url to be your forked repo
 
 		$ oc new-app openshift/templates/cakephp.json -p SOURCE_REPOSITORY_URL=<your repository location>
 
@@ -46,32 +41,30 @@ These steps assume your OpenShift deployment has the default set of ImageStreams
 
 		$ oc start-build cakephp-example
 
-5. Once the build is running, watch your build progress  
+5. Once the build is running, watch your build progress
 
 		$ oc logs build/cakephp-example-1
 
-6. Wait for cakephp-example pods to start up (this can take a few minutes):  
+6. Wait for cakephp-example pods to start up (this can take a few minutes):
 
 		$ oc get pods -w
 
+        Sample output:
 
-	Sample output:  
+               NAME                      READY     REASON         RESTARTS   AGE
+               cakephp-example-1-build   0/1       ExitCode:0     0          8m
+               cakephp-example-1-pytud   1/1       Running        0          2m
 
-	       NAME                      READY     REASON         RESTARTS   AGE
-	       cakephp-example-1-build   0/1       ExitCode:0     0          8m
-	       cakephp-example-1-pytud   1/1       Running        0          2m
-
-
-7. Check the IP and port the cakephp-example service is running on:  
+7. Check the IP and port the cakephp-example service is running on:
 
 		$ oc get svc
 
-	Sample output:  
+	Sample output:
 
 	       NAME              LABELS                     SELECTOR               IP(S)           PORT(S)
 	       cakephp-example   template=cakephp-example   name=cakephp-example   172.30.97.123   8080/TCP
 
-In this case, the IP for cakephp-example is 172.30.97.123 and it is on port 8080.  
+In this case, the IP for cakephp-example is 172.30.97.123 and it is on port 8080.
 *Note*: you can also get this information from the web console.
 
 ### Debugging Unexpected Failures
@@ -79,9 +72,9 @@ In this case, the IP for cakephp-example is 172.30.97.123 and it is on port 8080
 Review some of the common tips and suggestions [here](https://github.com/openshift/origin/blob/master/docs/debugging-openshift.md).
 
 ### Installation: With MySQL
-1. Follow the steps for the Manual Installation above for all but step 3, instead use step 2 below.  
+1. Follow the steps for the Manual Installation above for all but step 3, instead use step 2 below.
   - Note: The output in steps 5-6 may also display information about your database.
-2. Add a PHP application from the cakephp-mysql template and specify the source url to be your forked repo  
+2. Add a PHP application from the cakephp-mysql template and specify the source url to be your forked repo
 
 		$ oc new-app openshift/templates/cakephp-mysql.json -p SOURCE_REPOSITORY_URL=<your repository location>
 
@@ -97,7 +90,7 @@ Since OpenShift V3 does not provide a git repository out of the box, you can con
 6. Navigate to your repository on GitHub and click on repository settings > webhooks > Add webhook
 7. Paste your webhook URL provided by OpenShift
 8. Leave the defaults for the remaining fields - That's it!
-9. After you save your webhook, if you refresh your settings page you can see the status of the ping that Github sent to OpenShift to verify it can reach the server.  
+9. After you save your webhook, if you refresh your settings page you can see the status of the ping that Github sent to OpenShift to verify it can reach the server.
 
 ### Enabling the Database example
 In order to access the example CakePHP home page, which contains application stats including database connectivity, you have to go into the app/View/Layouts/ directory, remove the default.ctp and after that rename default.ctp.default into default.ctp`.

@@ -1,11 +1,14 @@
 #!/bin/bash -e
 
+touch /tmp/tests.sqlite
+
 if [ -e /usr/local/sti/assemble ]; then
   # old assemble location in previous php image versions
   source /usr/local/sti/assemble
-else 
+else
   source ${STI_SCRIPTS_PATH}/assemble
 fi
 
 [[ -d ./tmp ]] && chmod -R go+rw ./tmp
 
+rm -rf /tmp/tests.sqlite

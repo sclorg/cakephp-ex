@@ -28,7 +28,6 @@
         "name": "${NAME}"
       },
       "stringData" : {
-        "cakephp-secret-token" : "${CAKEPHP_SECRET_TOKEN}",
         "cakephp-security-salt" : "${CAKEPHP_SECURITY_SALT}"
       }
     },
@@ -65,6 +64,9 @@
         "to": {
           "kind": "Service",
           "name": "${NAME}"
+        },
+        "tls": {
+          "termination": "edge"
         }
       }
     },
@@ -211,16 +213,11 @@
                 },
                 "env": [
                   {
-                    "name": "CAKEPHP_SECRET_TOKEN",
-                    "valueFrom": {
-                      "secretKeyRef" : {
-                        "name" : "${NAME}",
-                        "key" : "cakephp-secret-token"
-                      }
-                    }
+                    "name": "PHP_CLEAR_ENV",
+                    "value": "OFF"
                   },
                   {
-                    "name": "CAKEPHP_SECURITY_SALT",
+                    "name": "SECURITY_SALT",
                     "valueFrom": {
                       "secretKeyRef" : {
                         "name" : "${NAME}",
@@ -303,13 +300,6 @@
       "description": "Github trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted.",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
-    },
-    {
-      "name": "CAKEPHP_SECRET_TOKEN",
-      "displayName": "CakePHP Secret Token",
-      "description": "Set this to a long random string.",
-      "generate": "expression",
-      "from": "[\\w]{50}"
     },
     {
       "name": "CAKEPHP_SECURITY_SALT",

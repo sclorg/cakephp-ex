@@ -6,7 +6,6 @@
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
-    RewriteRule    ^health.php$ health.php    [L]
     RewriteRule    ^(\.well-known/.*)$ $1 [L]
     RewriteRule    ^$    webroot/    [L]
     RewriteRule    (.*) webroot/$1    [L]

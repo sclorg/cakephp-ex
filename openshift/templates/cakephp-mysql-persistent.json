@@ -30,7 +30,6 @@
       "stringData" : {
         "database-user" : "${DATABASE_USER}",
         "database-password" : "${DATABASE_PASSWORD}",
-        "cakephp-secret-token" : "${CAKEPHP_SECRET_TOKEN}",
         "cakephp-security-salt" : "${CAKEPHP_SECURITY_SALT}"
       }
     },
@@ -68,6 +67,9 @@
         "to": {
           "kind": "Service",
           "name": "${NAME}"
+        },
+        "tls": {
+          "termination": "edge"
         }
       }
     },
@@ -196,6 +198,12 @@
             }
           },
           "spec": {
+            "securityContext": {
+              "runAsNonRoot": true,
+              "seccompProfile": {
+                "type": "RuntimeDefault"
+              }
+            },
             "containers": [
               {
                 "name": "cakephp-mysql-persistent",
@@ -210,7 +218,7 @@
                   "initialDelaySeconds": 3,
                   "periodSeconds": 60,
                   "httpGet": {
-                    "path": "/health.php",
+                    "path": "/",
                     "port": 8080
                   }
                 },
@@ -219,18 +227,18 @@
                   "initialDelaySeconds": 30,
                   "periodSeconds": 60,
                   "httpGet": {
-                    "path": "/health.php",
+                    "path": "/",
                     "port": 8080
                   }
                 },
                 "env": [
                   {
-                    "name": "DATABASE_SERVICE_NAME",
-                    "value": "${DATABASE_SERVICE_NAME}"
+                    "name": "PHP_CLEAR_ENV",
+                    "value": "OFF"
                   },
                   {
-                    "name": "DATABASE_ENGINE",
-                    "value": "${DATABASE_ENGINE}"
+                    "name": "DATABASE_SERVICE_NAME",
+                    "value": "${DATABASE_SERVICE_NAME}"
                   },
                   {
                     "name": "DATABASE_NAME",
@@ -255,16 +263,7 @@
                     }
                   },
                   {
-                    "name": "CAKEPHP_SECRET_TOKEN",
-                    "valueFrom": {
-                      "secretKeyRef" : {
-                        "name" : "${NAME}",
-                        "key" : "cakephp-secret-token"
-                      }
-                    }
-                  },
-                  {
-                    "name": "CAKEPHP_SECURITY_SALT",
+                    "name": "SECURITY_SALT",
                     "valueFrom": {
                       "secretKeyRef" : {
                         "name" : "${NAME}",
@@ -280,6 +279,14 @@
                 "resources": {
                   "limits": {
                     "memory": "${MEMORY_LIMIT}"
+                  }
+                },
+                "securityContext": {
+                  "allowPrivilegeEscalation": false,
+                  "capabilities": {
+                    "drop": [
+                      "ALL"
+                    ]
                   }
                 }
               }
@@ -536,13 +543,6 @@
       "value": "mysql"
     },
     {
-      "name": "DATABASE_ENGINE",
-      "displayName": "Database Engine",
-      "description": "Database engine: postgresql, mysql or sqlite (default).",
-      "required": true,
-      "value": "mysql"
-    },
-    {
       "name": "DATABASE_NAME",
       "displayName": "Database Name",
       "required": true,
@@ -559,13 +559,6 @@
       "displayName": "Database Password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{16}"
-    },
-    {
-      "name": "CAKEPHP_SECRET_TOKEN",
-      "displayName": "CakePHP secret token",
-      "description": "Set this to a long random string.",
-      "generate": "expression",
-      "from": "[\\w]{50}"
     },
     {
       "name": "CAKEPHP_SECURITY_SALT",
