@@ -229,6 +229,10 @@
                     "value": "${DATABASE_SERVICE_NAME}"
                   },
                   {
+                    "name": "PHP_CLEAR_ENV",
+                    "value": "OFF"
+                  },
+                  {
                     "name": "DATABASE_ENGINE",
                     "value": "${DATABASE_ENGINE}"
                   },
@@ -532,13 +536,6 @@
     {
       "name": "DATABASE_SERVICE_NAME",
       "displayName": "Database Service Name",
-      "required": true,
-      "value": "mysql"
-    },
-    {
-      "name": "DATABASE_ENGINE",
-      "displayName": "Database Engine",
-      "description": "Database engine: postgresql, mysql or sqlite (default).",
       "required": true,
       "value": "mysql"
     },

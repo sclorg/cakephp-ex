@@ -220,6 +220,10 @@
                     }
                   },
                   {
+                    "name": "PHP_CLEAR_ENV",
+                    "value": "OFF"
+                  },
+                  {
                     "name": "CAKEPHP_SECURITY_SALT",
                     "valueFrom": {
                       "secretKeyRef" : {
