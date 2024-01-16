@@ -141,40 +141,25 @@
       }
     },
     {
-      "kind": "DeploymentConfig",
-      "apiVersion": "apps.openshift.io/v1",
+      "kind": "Deployment",
+      "apiVersion": "apps/v1",
       "metadata": {
         "name": "${NAME}",
         "annotations": {
           "description": "Defines how to deploy the application server",
-          "template.alpha.openshift.io/wait-for-ready": "true"
+          "template.alpha.openshift.io/wait-for-ready": "true",
+          "image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]"
         }
       },
       "spec": {
         "strategy": {
-          "type": "Rolling"
+          "type": "RollingUpdate"
         },
-        "triggers": [
-          {
-            "type": "ImageChange",
-            "imageChangeParams": {
-              "automatic": true,
-              "containerNames": [
-                "cakephp-example"
-              ],
-              "from": {
-                "kind": "ImageStreamTag",
-                "name": "${NAME}:latest"
-              }
-            }
-          },
-          {
-            "type": "ConfigChange"
-          }
-        ],
         "replicas": 1,
         "selector": {
-          "name": "${NAME}"
+          "matchLabels": {
+            "name": "${NAME}"
+          }
         },
         "template": {
           "metadata": {
@@ -262,7 +247,7 @@
       "displayName": "PHP Version",
       "description": "Version of PHP image to be used (7.3-ubi7, 7.4-ubi8, or latest).",
       "required": true,
-      "value": "7.4-ubi8"
+      "value": "8.0-ubi8"
     },
     {
       "name": "MEMORY_LIMIT",
