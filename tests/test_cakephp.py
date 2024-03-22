@@ -28,7 +28,7 @@ class TestCakePHPAppExTemplate:
 		expected_output = "Welcome to PHP"
 		if VERSION.startswith("7.4") or VERSION.startswith("8.0"):
 			branch_to_test = "4.X"
-			expected_output = "Welcome to CakePHP 4.5"
+			expected_output = "Welcome to CakePHP 4"
 		if VERSION.startswith("8.1") or VERSION.startswith("8.2"):
 			branch_to_test = "5.X"
 			expected_output = "Welcome to CakePHP 5"
@@ -50,7 +50,7 @@ class TestCakePHPAppExTemplate:
 		expected_output = "Welcome to PHP"
 		if VERSION.startswith("7.4") or VERSION.startswith("8.0"):
 			branch_to_test = "4.X"
-			expected_output = "Welcome to CakePHP 4.5"
+			expected_output = "Welcome to CakePHP 4"
 		elif VERSION.startswith("8.1") or VERSION.startswith("8.2"):
 			branch_to_test = "5.X"
 			expected_output = "Welcome to CakePHP 5"
@@ -64,5 +64,6 @@ class TestCakePHPAppExTemplate:
 		)
 		assert self.oc_api.template_deployed(name_in_template="cakephp-example")
 		assert self.oc_api.check_response_outside_cluster(
+			protocol="https",
 			name_in_template="cakephp-example", expected_output=expected_output
 		)
