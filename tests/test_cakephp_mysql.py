@@ -12,7 +12,7 @@ if not VERSION:
 	VERSION = "8.1-ubi8"
 
 
-class TestCakePHPAppExTemplate:
+class TestCakePHPAppMySQLExTemplate:
 
 	def setup_method(self):
 		self.oc_api = OpenShiftAPI(pod_name_prefix="cakephp-example")
@@ -27,7 +27,31 @@ class TestCakePHPAppExTemplate:
 	def teardown_method(self):
 		self.oc_api.delete_project()
 
-	def test_template_inside_cluster(self):
+	def test_local_template_inside_cluster(self):
+		branch_to_test = "master"
+		expected_output = "Welcome to PHP"
+		if VERSION.startswith("7.4") or VERSION.startswith("8.0"):
+			branch_to_test = "4.X"
+			expected_output = "Welcome to CakePHP 4"
+		if VERSION.startswith("8.1") or VERSION.startswith("8.2"):
+			branch_to_test = "5.X"
+			expected_output = "Welcome to CakePHP 5"
+		template_json = "../openshift/templates/cakephp-mysql-persistent.json"
+		assert self.oc_api.deploy_template(
+			template=template_json, name_in_template="cakephp-example", expected_output=expected_output,
+			openshift_args=[
+				f"SOURCE_REPOSITORY_REF={branch_to_test}",
+				f"PHP_VERSION={VERSION}",
+				"NAME=cakephp-example",
+				"MYSQL_VERSION=8.0-el8"
+			]
+		)
+		assert self.oc_api.template_deployed(name_in_template="cakephp-example")
+		assert self.oc_api.check_response_inside_cluster(
+			name_in_template="cakephp-example", expected_output=expected_output
+		)
+
+	def test_remote_template_inside_cluster(self):
 		branch_to_test = "master"
 		expected_output = "Welcome to PHP"
 		if VERSION.startswith("7.4") or VERSION.startswith("8.0"):
@@ -54,7 +78,7 @@ class TestCakePHPAppExTemplate:
 			name_in_template="cakephp-example", expected_output=expected_output
 		)
 
-	def test_template_by_request(self):
+	def test_remote_template_by_request(self):
 		branch_to_test = "master"
 		expected_output = "Welcome to PHP"
 		if VERSION.startswith("7.4") or VERSION.startswith("8.0"):

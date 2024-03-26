@@ -11,8 +11,7 @@
       "openshift.io/long-description": "This template defines resources needed to develop a CakePHP application, including a build configuration, application deployment configuration, and database deployment configuration.",
       "openshift.io/provider-display-name": "Red Hat, Inc.",
       "openshift.io/documentation-url": "https://github.com/sclorg/cakephp-ex",
-      "openshift.io/support-url": "https://access.redhat.com",
-      "template.openshift.io/bindable": "false"
+      "openshift.io/support-url": "https://access.redhat.com"
     }
   },
   "message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/cakephp-ex/blob/master/README.md.",
@@ -61,7 +60,10 @@
       "kind": "Route",
       "apiVersion": "route.openshift.io/v1",
       "metadata": {
-        "name": "${NAME}"
+        "name": "${NAME}",
+        "annotations": {
+          "template.openshift.io/expose-uri": "http://{.spec.host}{.spec.path}"
+        }
       },
       "spec": {
         "host": "${APPLICATION_DOMAIN}",
@@ -149,23 +151,12 @@
         "annotations": {
           "description": "Defines how to deploy the application server",
           "template.alpha.openshift.io/wait-for-ready": "true",
-          "image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]"
+          "image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"},{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.initContainers[0].image\"}]"
         }
       },
       "spec": {
         "strategy": {
-          "type": "Recreate",
-          "recreateParams": {
-            "pre": {
-              "failurePolicy": "Retry",
-              "execNewPod": {
-                "command": [
-                  "./migrate-database.sh"
-                ],
-                "containerName": "cakephp-mysql-persistent"
-              }
-            }
-          }
+          "type": "Recreate"
         },
         "replicas": 1,
         "selector": {
@@ -181,9 +172,72 @@
             }
           },
           "spec": {
+            "initContainers": [
+              {
+                "name": "cakephp-init-container",
+                "image": " ",
+                "command": [
+                  "./migrate-database.sh"
+                ],
+                "env": [
+                  {
+                    "name": "DATABASE_SERVICE_NAME",
+                    "value": "${DATABASE_SERVICE_NAME}"
+                  },
+				  {
+                    "name": "DATABASE_USER",
+                    "valueFrom": {
+                      "secretKeyRef" : {
+                        "name" : "${NAME}",
+                        "key" : "database-user"
+                      }
+                    }
+                  },
+                  {
+                    "name": "DATABASE_PASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef" : {
+                        "name" : "${NAME}",
+                        "key" : "database-password"
+                      }
+                    }
+                  },
+                  {
+                    "name": "CAKEPHP_SECRET_TOKEN",
+                    "valueFrom": {
+                      "secretKeyRef" : {
+                        "name" : "${NAME}",
+                        "key" : "cakephp-secret-token"
+                      }
+                    }
+                  },
+                  {
+                    "name": "CAKEPHP_SECURITY_SALT",
+                    "valueFrom": {
+                      "secretKeyRef" : {
+                        "name" : "${NAME}",
+                        "key" : "cakephp-security-salt"
+                      }
+                    }
+                  },
+				  {
+                    "name": "DATABASE_NAME",
+                    "value": "${DATABASE_NAME}"
+                  },
+	              {
+                    "name": "DATABASE_ENGINE",
+                    "value": "${DATABASE_NAME}"
+                  },
+                  {
+                    "name": "APPLICATION_DOMAIN",
+                    "value": "${APPLICATION_DOMAIN}"
+                  }
+                ]
+              }
+            ],
             "containers": [
               {
-                "name": "cakephp-mysql-persistent",
+                "name": "${NAME}",
                 "image": " ",
                 "ports": [
                   {
