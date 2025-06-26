@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [ "7.4-ubi8", "8.0-ubi8", "8.1-ubi9", "8.0-ubi9" ]
+        version: [ "7.4-ubi8", "8.2-ubi8", "8.1-ubi9", "8.2-ubi9", "8.3-ubi9", "8.3-ubi10" ]
 
     if: |
       github.event.issue.pull_request
@@ -20,7 +20,7 @@ jobs:
       - uses: sclorg/testing-farm-as-github-action@main
         with:
           api_key: ${{ secrets.TF_INTERNAL_API_KEY }}
-          compose: "RHEL-9.4.0-Nightly"
+          compose: "RHEL-9.6.0-Nightly"
           git_url: "https://gitlab.cee.redhat.com/platform-eng-core-services/sclorg-tmt-plans"
           git_ref: "master"
           tf_scope: "private"
