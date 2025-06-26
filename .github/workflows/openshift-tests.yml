@@ -27,4 +27,4 @@ jobs:
           tmt_plan_regex: "rhel9-openshift-4"
           update_pull_request_status: true
           pull_request_status_name: "RHEL9-OpenShift-4 - imagestream test ${{ matrix.version }}"
-          variables: "REPO_URL=${{ github.server_url }}/${{ github.repository }};REPO_NAME=${{ github.repository }};PR_NUMBER=${{ github.event.issue.number }};OS=rhel8;SINGLE_VERSION=${{ matrix.version }};TEST_NAME=test-openshift-4"
+          variables: "REPO_URL=${{ github.server_url }}/${{ github.repository }};REPO_NAME=${{ github.repository }};PR_NUMBER=${{ github.event.issue.number }};OS=rhel9;SINGLE_VERSION=${{ matrix.version }};TEST_NAME=test-openshift-pytest"
