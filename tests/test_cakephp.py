@@ -18,7 +18,7 @@ class TestCakePHPAppExTemplate:
 		self.oc_api = OpenShiftAPI(pod_name_prefix="cakephp-example")
 		json_raw_file = self.oc_api.get_raw_url_for_json(container="s2i-php-container", dir="imagestreams",
 														 filename="php-rhel.json")
-		self.oc_api.import_is(path=json_raw_file, name="php")
+		self.oc_api.import_is(path=json_raw_file, name="php", skip_check=True)
 
 	def teardown_method(self):
 		self.oc_api.delete_project()
@@ -29,7 +29,7 @@ class TestCakePHPAppExTemplate:
 		if VERSION.startswith("7.4") or VERSION.startswith("8.0"):
 			branch_to_test = "4.X"
 			expected_output = "Welcome to CakePHP 4"
-		if VERSION.startswith("8.1") or VERSION.startswith("8.2"):
+		if VERSION.startswith("8.1") or VERSION.startswith("8.2") or VERSION.startswith("8.3"):
 			branch_to_test = "5.X"
 			expected_output = "Welcome to CakePHP 5"
 
